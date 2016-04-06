@@ -1,0 +1,85 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="ksu.mydelivery.LoginActivity"
+    android:weightSum="1"
+    android:background="@color/gray"
+    >
+
+    <!-- Login progress -->
+
+
+
+        <AutoCompleteTextView
+            android:id="@+id/txt_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:id="@+id/txt_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:imeActionId="@+id/login"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/txt_email"
+            android:layout_alignParentLeft="false" />
+
+        <Button
+            android:id="@+id/btn_signin"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign in"
+            android:textStyle="bold"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/txt_pass"
+            android:layout_alignParentLeft="false"
+            android:layout_marginTop="20dp"
+            />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:indeterminate="false"
+            android:layout_below="@+id/btn_signin"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Tview_signup"
+            android:text="if you are not a member yet, sign up now"
+            android:textStyle="bold"
+            android:textSize="17dp"
+            android:layout_below="@+id/btn_signin"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:textColor="#1b5de1"
+            android:clickable="true"
+            />
+
+
+
+</RelativeLayout>
