@@ -19,8 +19,8 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void SignupProvider () {
-        TextView TsignP = (TextView) findViewById(R.id.Tview_signupP);
-        TsignP.setOnClickListener(new View.OnClickListener() {
+        TextView signProvider = (TextView) findViewById(R.id.lblSignupProvider);
+        signProvider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SignUpActivity.this, SignUpProviderActivity.class));

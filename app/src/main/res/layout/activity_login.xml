@@ -15,43 +15,40 @@
 
     <!-- Login progress -->
 
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/txtPhone"
+        android:layout_centerHorizontal="true"
+        android:hint="Phone Number"
+        android:layout_centerVertical="true"
+        android:editable="false" />
 
-
-        <AutoCompleteTextView
-            android:id="@+id/txt_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Phone Number"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true" />
-
-        <EditText
-            android:id="@+id/txt_pass"
+    <EditText
+            android:id="@+id/txtPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:imeActionId="@+id/login"
-            android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionUnspecified"
             android:inputType="textPassword"
             android:maxLines="1"
             android:singleLine="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/txt_email"
-            android:layout_alignParentLeft="false" />
+            android:layout_alignParentLeft="false"
+            android:layout_below="@+id/txtPhone"
+            android:layout_centerVertical="true" />
 
         <Button
-            android:id="@+id/btn_signin"
+            android:id="@+id/btnLogin"
             style="?android:textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sign in"
+            android:text="Login"
             android:textStyle="bold"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/txt_pass"
+            android:layout_below="@+id/txtPass"
             android:layout_alignParentLeft="false"
             android:layout_marginTop="20dp"
             />
@@ -63,17 +60,17 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:indeterminate="false"
-            android:layout_below="@+id/btn_signin"
+            android:layout_above="@+id/txtPhone"
             android:layout_centerHorizontal="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/Tview_signup"
+            android:id="@+id/lblSignup"
             android:text="if you are not a member yet, sign up now"
             android:textStyle="bold"
             android:textSize="17dp"
-            android:layout_below="@+id/btn_signin"
+            android:layout_below="@+id/btnLogin"
             android:layout_alignParentStart="true"
             android:layout_marginTop="20dp"
             android:textColor="#1b5de1"

@@ -23,17 +23,18 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText9"
+        android:id="@+id/txtNationID"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="54dp"
-        android:hint="National ID" />
+        android:hint="National ID"
+        android:inputType="phone"/>
 
     <Gallery
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/gallery"
-        android:layout_below="@+id/editText9"
+        android:layout_below="@+id/txtNationID"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp" />
 
@@ -41,9 +42,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Sign up"
-        android:id="@+id/button2"
+        android:id="@+id/btnSignup"
         android:layout_below="@+id/gallery"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="129dp" />
+
+
 
 </RelativeLayout>

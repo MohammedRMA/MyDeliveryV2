@@ -13,9 +13,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
+            android:label="Login">
+
+        </activity>
+
         <activity
             android:name=".SignUpActivity"
             android:label="@string/title_activity_sign_up"
@@ -36,12 +41,46 @@
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".AddRequestActivity"
+        <activity
+            android:name=".AddRequestActivity"
             android:label="Add Request"
-            android:parentActivityName=".HomeActivity"
-            >
-        </activity>
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".ProfileActivity"
+            android:label="Profile"
+            android:parentActivityName=".ProfileActivity" />
+        <activity
+            android:name=".EditPassActivity"
+            android:label="Change Password"
+            android:parentActivityName=".EditPassActivity" />
+        <activity
+            android:name=".TipsActivity"
+            android:label="Tips"
+            android:parentActivityName=".TipsActivity" />
+        <activity
+            android:name=".AboutActivity"
+            android:label="About Us"
+            android:parentActivityName=".AboutActivity" />
+        <activity
+            android:name=".ContactActivity"
+            android:label="Contact Us"
+            android:parentActivityName=".ContactActivity" />
+        <activity
+            android:name=".ShareActivity"
+            android:label="Share App"
+            android:parentActivityName=".ShareActivity" />
+        <activity
+            android:name=".MyRequestActivity"
+            android:label="My Request"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HomeProviderActivity"
+            android:label="Home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddOfferActivity"
+            android:label="Add Offer"
+            android:parentActivityName=".AddOfferActivity"  />
     </application>
 
 </manifest>

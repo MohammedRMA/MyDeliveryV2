@@ -12,7 +12,7 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText10"
+        android:id="@+id/txtTitle"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:hint="Title" />
@@ -20,20 +20,19 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText11"
-        android:layout_below="@+id/editText10"
+        android:id="@+id/txtDescr"
+        android:layout_below="@+id/txtTitle"
         android:layout_centerHorizontal="true"
         android:hint="Description" />
 
     <Spinner
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:layout_below="@+id/editText11"
+        android:id="@+id/spnType"
+        android:layout_below="@+id/txtDescr"
         android:layout_centerHorizontal="true"
         android:spinnerMode="dropdown"
-        android:textAlignment="center"
-        android:hint="Type"
+        android:textAlignment="textStart"
         android:entries="@array/TypeArray"
         />
 
@@ -42,8 +41,8 @@
         android:layout_height="wrap_content"
         android:inputType="textPostalAddress"
         android:ems="10"
-        android:id="@+id/editText12"
-        android:layout_below="@+id/spinner"
+        android:id="@+id/txtSource"
+        android:layout_below="@+id/spnType"
         android:layout_centerHorizontal="true"
         android:hint="From" />
 
@@ -52,8 +51,8 @@
         android:layout_height="wrap_content"
         android:inputType="textPostalAddress"
         android:ems="10"
-        android:id="@+id/editText13"
-        android:layout_below="@+id/editText12"
+        android:id="@+id/txtDest"
+        android:layout_below="@+id/txtSource"
         android:layout_centerHorizontal="true"
         android:hint="To" />
 
@@ -62,8 +61,8 @@
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:ems="10"
-        android:id="@+id/editText14"
-        android:layout_below="@+id/editText13"
+        android:id="@+id/txtPrice"
+        android:layout_below="@+id/txtDest"
         android:layout_centerHorizontal="true"
         android:hint="Price" />
 
@@ -72,8 +71,8 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
-        android:id="@+id/editText15"
-        android:layout_below="@+id/editText14"
+        android:id="@+id/txtDueTime"
+        android:layout_below="@+id/txtPrice"
         android:layout_centerHorizontal="true"
         android:hint="Due time" />
 
@@ -82,17 +81,17 @@
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
-        android:id="@+id/editText16"
-        android:layout_below="@+id/editText15"
+        android:id="@+id/txtContact"
+        android:layout_below="@+id/txtDueTime"
         android:layout_centerHorizontal="true"
         android:hint="Contact information" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
+        android:id="@+id/btnAddRequest"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/editText16"
+        android:layout_alignEnd="@+id/txtContact"
         android:src="@android:drawable/checkbox_on_background"
 
         />

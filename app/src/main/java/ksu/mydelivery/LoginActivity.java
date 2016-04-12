@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -19,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void Signup () {
-        TextView Tsign = (TextView) findViewById(R.id.Tview_signup);
+        TextView Tsign = (TextView) findViewById(R.id.lblSignup);
         Tsign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,16 +31,23 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void Login () {
-      /*  final String email = findViewById(R.id.txt_email).toString();
-        final String pass =  findViewById(R.id.txt_pass).toString();*/
-        Button login = (Button) findViewById(R.id.btn_signin);
+
+        Button login = (Button) findViewById(R.id.btnLogin);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-               // if (email == "m@m.com" && pass == "123")
+            public void onClick(View v){
+                EditText phone = (EditText) findViewById(R.id.txtPhone);
+                EditText  pass =  (EditText) findViewById(R.id.txtPass);
+                if (phone.getText().toString().equals("123") && pass.getText().toString().equals("123")) {
+                    Toast.makeText(getApplicationContext(), "Login Success User", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-
-                 //   Toast.makeText("Failed", Toast.LENGTH_LONG,);
+                }
+                else if (phone.getText().toString().equals("321") && pass.getText().toString().equals("321")){
+                    Toast.makeText(getApplicationContext(), "Login Success Provider", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(LoginActivity.this, HomeProviderActivity.class));
+                }
+                else
+                   Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText3"
+        android:id="@+id/txtFirstN"
         android:layout_centerHorizontal="true"
         android:hint="First name" />
 
@@ -27,8 +27,8 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText4"
-        android:layout_below="@+id/editText3"
+        android:id="@+id/txtLastN"
+        android:layout_below="@+id/txtFirstN"
         android:layout_centerHorizontal="true"
         android:hint="Last name" />
 
@@ -37,8 +37,8 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText5"
-        android:layout_below="@+id/editText4"
+        android:id="@+id/txtPhone"
+        android:layout_below="@+id/txtLastN"
         android:layout_centerHorizontal="true"
         android:hint="Phone number" />
 
@@ -47,8 +47,8 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/editText"
-        android:layout_below="@+id/editText5"
+        android:id="@+id/txtEmail"
+        android:layout_below="@+id/txtPhone"
         android:layout_centerHorizontal="true"
         android:hint="Email" />
 
@@ -57,8 +57,8 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText2"
-        android:layout_below="@+id/editText"
+        android:id="@+id/txtPass"
+        android:layout_below="@+id/txtEmail"
         android:layout_centerHorizontal="true"
         android:hint="Password" />
 
@@ -67,44 +67,42 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
-        android:id="@+id/editText6"
-        android:layout_below="@+id/editText2"
+        android:id="@+id/txtBDate"
+        android:layout_below="@+id/txtPass"
         android:layout_centerHorizontal="true"
         android:hint="Birth date" />
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Sign up"
-        android:id="@+id/button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="99dp" />
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText7"
-        android:layout_below="@+id/editText6"
+        android:id="@+id/txtAddress"
+        android:layout_below="@+id/txtBDate"
         android:layout_centerHorizontal="true"
         android:hint="Address" />
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText8"
-        android:layout_below="@+id/editText7"
+        android:id="@+id/txtNation"
+        android:layout_below="@+id/txtAddress"
         android:layout_centerHorizontal="true"
         android:hint="Nationality" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign up"
+        android:id="@+id/btnSignup"
+        android:layout_below="@id/txtNation" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="if you like to be a provider, Click here"
-        android:id="@+id/Tview_signupP"
+        android:id="@+id/lblSignupProvider"
         android:textSize="16dp"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp" />
+        android:layout_below="@+id/btnSignup" />
 
 </RelativeLayout>
