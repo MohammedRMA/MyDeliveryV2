@@ -25,7 +25,7 @@ public class HomeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //toolbar.setNavigationIcon(R.drawable.ic_menu_camera);
         setSupportActionBar(toolbar);
-        
+
 
         FloatingActionButton addRequest = (FloatingActionButton) findViewById(R.id.fabAddRequest);
         addRequest.setOnClickListener(new View.OnClickListener() {
