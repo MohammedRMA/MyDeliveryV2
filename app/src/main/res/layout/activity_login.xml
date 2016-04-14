@@ -11,6 +11,7 @@
     tools:context="ksu.mydelivery.LoginActivity"
     android:weightSum="1"
     android:background="@color/gray"
+
     >
 
     <!-- Login progress -->

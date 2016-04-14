@@ -17,8 +17,6 @@
     </string>
     <string name="title_activity_sign_up">Sign up</string>
     <string name="title_activity_sign_up_provider">Sign up provider</string>
-    <string name="title_activity_home">HomeActivity</string>
-
 
     <string name="title_activity_add_request">AddRequestActivity</string>
     <string-array name="TypeArray">
@@ -100,4 +98,8 @@
     <string name="title_activity_my_request">MyRequestActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_home_provider">HomeProviderActivity</string>
+    <string name="title_activity_home">Home</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
