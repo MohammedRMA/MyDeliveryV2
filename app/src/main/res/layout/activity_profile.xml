@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/txtPhone"
+            android:id="@+id/txtContactInfo"
             android:layout_below="@+id/txtLastN"
             android:layout_centerHorizontal="true"
             android:hint="Phone number"
@@ -54,7 +54,7 @@
             android:inputType="textEmailAddress"
             android:ems="10"
             android:id="@+id/txtEmail"
-            android:layout_below="@+id/txtPhone"
+            android:layout_below="@+id/txtContactInfo"
             android:layout_centerHorizontal="true"
             android:hint="Email" />
 

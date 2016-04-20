@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':GenAsync.1.2'

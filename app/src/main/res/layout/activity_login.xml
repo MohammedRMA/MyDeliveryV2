@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
-        android:id="@+id/txtPhone"
+        android:id="@+id/txtContactInfo"
         android:layout_centerHorizontal="true"
         android:hint="Phone Number"
         android:layout_centerVertical="true"
@@ -38,7 +38,7 @@
             android:singleLine="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="false"
-            android:layout_below="@+id/txtPhone"
+            android:layout_below="@+id/txtContactInfo"
             android:layout_centerVertical="true" />
 
         <Button
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:indeterminate="false"
-            android:layout_above="@+id/txtPhone"
+            android:layout_above="@+id/txtContactInfo"
             android:layout_centerHorizontal="true" />
 
         <TextView
@@ -71,12 +71,10 @@
             android:text="if you are not a member yet, sign up now"
             android:textStyle="bold"
             android:textSize="17dp"
-            android:layout_below="@+id/btnLogin"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="20dp"
             android:textColor="#1b5de1"
             android:clickable="true"
-            />
+            android:layout_below="@+id/btnLogin"
+            android:layout_centerHorizontal="true" />
 
 
 

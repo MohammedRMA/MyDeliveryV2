@@ -10,7 +10,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kosalgeek.genasync12.AsyncResponse;
+import com.kosalgeek.genasync12.PostResponseAsyncTask;
+
+import java.util.HashMap;
+
 public class LoginActivity extends AppCompatActivity {
+
+    private  String phone, pass ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +43,50 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                EditText phone = (EditText) findViewById(R.id.txtPhone);
-                EditText  pass =  (EditText) findViewById(R.id.txtPass);
-                if (phone.getText().toString().equals("123") && pass.getText().toString().equals("123")) {
-                    Toast.makeText(getApplicationContext(), "Login Success User", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+
+                phone = ((EditText) findViewById(R.id.txtContactInfo)).getText().toString();
+                pass = ((EditText) findViewById(R.id.txtPass)).getText().toString();
+
+
+                if (phone.equals("") || pass.equals("")) {
+
+                    if (phone.equals("")) {
+                        (findViewById(R.id.txtContactInfo)).requestFocus();
+                        ((EditText) (findViewById(R.id.txtContactInfo))).setError("FIELD CANNOT BE EMPTY");
+                    }
+
+                    if (pass.equals("")) {
+                        (findViewById(R.id.txtPass)).requestFocus();
+                        ((EditText) (findViewById(R.id.txtPass))).setError("FIELD CANNOT BE EMPTY");
+                    }
                 }
-                else if (phone.getText().toString().equals("321") && pass.getText().toString().equals("321")){
-                    Toast.makeText(getApplicationContext(), "Login Success Provider", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(LoginActivity.this, HomeProviderActivity.class));
+
+                else {
+
+
+
+                    HashMap postData = new HashMap();
+
+                    postData.put("txtPhone", phone);
+                    postData.put("txtPassword", pass);
+
+                    PostResponseAsyncTask task1 = new PostResponseAsyncTask(LoginActivity.this, postData, new AsyncResponse() {
+                        @Override
+                        public void processFinish(String s) {
+                            if (s.contains("success")) {
+                                Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+
+                            }
+                            else {
+                                Toast.makeText(LoginActivity.this, "Wrong phone number or password", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
+                    task1.execute("http://10.0.2.2/user/login.php");
+
                 }
-                else
-                   Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_LONG).show();
             }
         });
     }

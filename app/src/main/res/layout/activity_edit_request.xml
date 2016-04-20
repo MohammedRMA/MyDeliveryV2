@@ -7,8 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ksu.mydelivery.AddRequestActivity"
-    android:background="@color/gray">
+    android:background="@color/gray"
+    tools:context="ksu.mydelivery.EditRequestActivity">
 
     <EditText
         android:layout_width="fill_parent"
@@ -19,84 +19,92 @@
         android:hint="Title" />
 
     <EditText
-        android:inputType="textMultiLine"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtDescr"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/txtDescription"
         android:layout_below="@+id/txtTitle"
         android:layout_centerHorizontal="true"
         android:hint="Description" />
 
-    <Spinner
+    <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spnType"
-        android:layout_below="@+id/txtDescr"
+        android:id="@+id/txtType"
+        android:layout_below="@+id/txtDescription"
         android:layout_centerHorizontal="true"
-        android:spinnerMode="dropdown"
-        android:textAlignment="textStart"
-        android:entries="@array/TypeArray"
-        />
+        android:hint="Type" />
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPostalAddress"
-        android:ems="10"
-        android:id="@+id/txtSource"
-        android:layout_below="@+id/spnType"
+        android:id="@+id/txtSrcAddress"
+        android:layout_below="@+id/txtType"
         android:layout_centerHorizontal="true"
-        android:hint="From" />
+        android:hint="Source Address" />
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPostalAddress"
-        android:ems="10"
-        android:id="@+id/txtDest"
-        android:layout_below="@+id/txtSource"
+        android:id="@+id/txtDestAddress"
+        android:layout_below="@+id/txtSrcAddress"
         android:layout_centerHorizontal="true"
-        android:hint="To" />
+        android:hint="Destination Address" />
 
     <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:inputType="numberDecimal"
-        android:ems="10"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/txtPrice"
-        android:layout_below="@+id/txtDest"
+        android:layout_below="@+id/txtDestAddress"
         android:layout_centerHorizontal="true"
         android:hint="Price" />
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
         android:id="@+id/txtDueTime"
         android:layout_below="@+id/txtPrice"
         android:layout_centerHorizontal="true"
-        android:hint="Due time"
-        android:text="Submitted At:" />
+        android:hint="Due Time" />
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
-        android:id="@+id/txtContact"
+        android:id="@+id/txtContactInfo"
         android:layout_below="@+id/txtDueTime"
         android:layout_centerHorizontal="true"
-        android:hint="Contact information" />
+        android:hint="Contact Information" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submitted At:"
+        android:id="@+id/lblSubmitTime"
+        android:layout_below="@+id/txtContactInfo"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="16dp"
+
+        />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnAddRequest"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/txtContact"
+        android:id="@+id/imgbtnSave"
         android:src="@android:drawable/checkbox_on_background"
+        android:layout_alignTop="@+id/imgbtnDelete"
+        android:layout_toEndOf="@+id/lblSubmitTime" />
 
-        />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgbtnDelete"
+        android:src="@android:drawable/ic_delete"
+        android:layout_toStartOf="@+id/lblSubmitTime"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
