@@ -17,9 +17,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class MyRequestActivity extends AppCompatActivity {
+
+    private static ArrayList<String> arrayList;
+    private static ArrayAdapter<String> adapter;
+    private static ArrayList<String> arrayList2;
+    private static ArrayAdapter<String> adapter2;
+    //private static EditText textInput;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -54,7 +68,13 @@ public class MyRequestActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+        String[] items = {"Apple","Banana","Grape"};
+        arrayList = new ArrayList<>(Arrays.asList(items));
+        adapter = new ArrayAdapter<>(this, R.layout.list_my_request , R.id.txtItem , arrayList);
 
+        String[] items2 = {"Orange","mAnGo","MohammedRMA"};
+        arrayList2 = new ArrayList<>(Arrays.asList(items2));
+        adapter2 = new ArrayAdapter<>(this, R.layout.list_my_request , R.id.txtItem , arrayList2);
 
     }
 
@@ -110,8 +130,19 @@ public class MyRequestActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_my_request, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            ListView lvMyReq = (ListView)  rootView.findViewById(R.id.lvMyRequest);
+          /*  TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+           textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));*/
+
+            if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
+                lvMyReq.setAdapter(adapter);
+            }
+            else {
+                lvMyReq.setAdapter(adapter2);
+            }
+
+
+
             return rootView;
         }
     }
