@@ -3,11 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ksu.mydelivery.AddOfferActivity">
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context="ksu.mydelivery.AddOfferActivity"
+    android:background="@color/gray">
 
     <Spinner
         android:layout_width="fill_parent"
@@ -44,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Regions:"
-        android:id="@+id/textView3"
+        android:id="@+id/txtRegion"
         android:layout_below="@+id/spnFrom"
         android:layout_alignParentStart="true"
         android:textSize="18dp"
@@ -57,7 +60,7 @@
         android:layout_height="wrap_content"
         android:text="North"
         android:id="@+id/chkNorth"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/txtRegion"
         android:layout_marginTop="10dp"
         android:layout_alignParentStart="true"
         android:checked="false" />
@@ -89,33 +92,25 @@
         android:layout_alignStart="@+id/chkSouth"
         android:checked="false" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Desired Price"
-        android:id="@+id/textView4"
-        android:layout_below="@+id/chkEast"
-        android:layout_alignParentStart="true"
-        android:textSize="18dp"
-        android:layout_marginTop="43dp"
-        android:layout_marginLeft="7dp"/>
 
-    <CheckBox
-        android:layout_width="wrap_content"
+    <EditText
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Less Than 100SR"
-        android:id="@+id/chkLess"
-        android:layout_below="@+id/textView4"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentStart="true"
-        android:checked="false" />
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/lblRegion"
+        android:layout_above="@+id/imgbtnAddOffer"
+        android:layout_marginBottom="80dp"
+        android:hint="Minimum price" />
 
-    <CheckBox
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="100SR or more"
-        android:id="@+id/chkMore"
-        android:layout_alignTop="@+id/chkLess"
-        android:layout_alignStart="@+id/chkWest"
-        android:checked="false" />
+        android:id="@+id/imgbtnAddOffer"
+        android:src="@drawable/ic_menu_add"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/chkWest"
+        android:background="@color/black_overlay"
+        />
+
 </RelativeLayout>

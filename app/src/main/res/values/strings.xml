@@ -102,4 +102,10 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_add_offer333">addOffer333Activity</string>
+    <string name="title_activity_add_offer444">Sign in</string>
+    <string name="title_activity_sign_up555">Sign in</string>
+    <string name="title_activity_add_offer22">Sign in</string>
+    <string name="title_activity_my_offer2">MyOffer2Activity</string>
+    <string name="title_activity_home_admin">HomeAdminActivity</string>
 </resources>

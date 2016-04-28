@@ -42,7 +42,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Sign up"
-        android:id="@+id/btnSignup"
+        android:id="@+id/btnSignupProvider"
         android:layout_below="@+id/gallery"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="129dp" />

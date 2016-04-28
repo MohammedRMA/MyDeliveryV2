@@ -14,14 +14,17 @@ import android.widget.Toast;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 
 public class SignUpActivity extends AppCompatActivity {
 
+    private Provider provider;
 
-   private  String firistN, lastN , phone , email , pass, bDate , address , nation ;
-
+    private  String firstN, lastN , phone , email , pass, bDate , address , nation ;
+    private  long   nationalID=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +48,40 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void SignupProvider () {
+        //  startActivity(new Intent(SignUpActivity.this, SignUpProviderActivity.class));
 
-        startActivity(new Intent(SignUpActivity.this, SignUpProviderActivity.class));
 
+            firstN = ((EditText) findViewById(R.id.txtFirstN)).getText().toString();
+            lastN = ((EditText) findViewById(R.id.txtLastN)).getText().toString();
+            phone = ((EditText) findViewById(R.id.txtContactInfo)).getText().toString();
+            email = ((EditText) findViewById(R.id.txtEmail)).getText().toString();
+            pass = ((EditText) findViewById(R.id.txtPass)).getText().toString();
+            bDate = ((EditText) findViewById(R.id.txtBDate)).getText().toString();
+
+
+            if (pass.equals("") || email.equals("") || firstN.equals("") || lastN.equals("") || phone.equals("") ) {
+                (findViewById(R.id.txtPass)).requestFocus();
+                ((EditText) (findViewById(R.id.txtPass))).setError("FIELD CANNOT BE EMPTY");
+            }
+
+            else {
+                            try {
+                                provider = new Provider(pass, email, firstN, lastN, phone, bDate, nationalID);
+                            } catch (Exception e) {
+                                Toast.makeText(SignUpActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                            }
+                            Intent intent = new Intent(SignUpActivity.this, SignUpProviderActivity.class);
+                            intent.putExtra("Provider", provider);
+
+                            startActivity(intent);
+                            finish();
+
+                        }
     }
 
     public void SignupUser () {
 
-          firistN = ((EditText) findViewById(R.id.txtFirstN)).getText().toString();
+          firstN = ((EditText) findViewById(R.id.txtFirstN)).getText().toString();
           lastN = ((EditText) findViewById(R.id.txtLastN)).getText().toString();
           phone = ((EditText) findViewById(R.id.txtContactInfo)).getText().toString();
           email = ((EditText) findViewById(R.id.txtEmail)).getText().toString();
@@ -61,7 +90,7 @@ public class SignUpActivity extends AppCompatActivity {
           address = ((EditText) findViewById(R.id.txtAddress)).getText().toString();
           nation = ((EditText) findViewById(R.id.txtNation)).getText().toString();
 
-        if (pass.equals("") || email.equals("") || firistN.equals("") || lastN.equals("") || phone.equals("") ) {
+        if (pass.equals("") || email.equals("") || firstN.equals("") || lastN.equals("") || phone.equals("") ) {
              (findViewById(R.id.txtPass)).requestFocus();
             ((EditText) (findViewById(R.id.txtPass))).setError("FIELD CANNOT BE EMPTY");
         }
@@ -73,7 +102,7 @@ public class SignUpActivity extends AppCompatActivity {
             HashMap postData = new HashMap();
             postData.put("txtPassword", pass);
             postData.put("txtEmail", email);
-            postData.put("txtFname", firistN);
+            postData.put("txtFname", firstN);
             postData.put("txtLname", lastN);
             postData.put("txtPhone", phone);
             postData.put("txtAddress", address);
@@ -85,8 +114,7 @@ public class SignUpActivity extends AppCompatActivity {
                 public void processFinish(String s) {
                     if (s.contains("success")) {
                         Toast.makeText(SignUpActivity.this, "Success", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
-
+                        finish();
                     }
                     else {
                         Toast.makeText(SignUpActivity.this, "Failed", Toast.LENGTH_LONG).show();

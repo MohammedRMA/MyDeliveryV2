@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblAvailableDay"
+        android:textSize="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/textView1"
+        android:layout_marginStart="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1"
+        android:paddingStart="20dp"
+        android:textSize="20dp"
+        android:text="Available Day(s)"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblAvailableTimeFrom"
+        android:textSize="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/lblAvailableDay"
+        android:layout_toEndOf="@+id/textView2"
+        android:layout_alignStart="@+id/lblAvailableDay"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:paddingStart="20dp"
+        android:textSize="20dp"
+        android:text="From"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/textView1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblAvailableTimeTo"
+        android:textSize="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/lblAvailableTimeFrom"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_alignStart="@+id/lblAvailableTimeFrom"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:paddingStart="20dp"
+        android:textSize="20dp"
+        android:text="To"
+       android:layout_marginTop="5dp"
+        android:layout_below="@+id/textView2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblRegion"
+        android:textSize="20dp"
+        android:layout_below="@+id/lblAvailableTimeTo"
+        android:layout_marginTop="5dp"
+        android:layout_alignStart="@+id/lblAvailableTimeTo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:paddingStart="20dp"
+        android:textSize="20dp"
+        android:text="Region"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/textView3"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblPrice"
+        android:textSize="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/lblRegion"
+        android:layout_alignStart="@+id/lblRegion" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:textSize="20dp"
+        android:paddingStart="20dp"
+        android:text="Price"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/lblRegion"
+        android:layout_marginEnd="15dp"/>
+</RelativeLayout>

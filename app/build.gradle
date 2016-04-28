@@ -30,4 +30,5 @@ dependencies {
     compile files('libs/KGJsonConverter.jar')
     compile files('libs/gson-2.2.4.jar')
     compile 'com.github.amigold.fundapter:library:1.0'
+    compile files('libs/GenAsync.1.2.1.jar')
 }

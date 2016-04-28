@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Regions:"
-        android:id="@+id/textView3"
+        android:id="@+id/txtRegion"
         android:layout_below="@+id/spnFrom"
         android:layout_alignParentStart="true"
         android:textSize="18dp"
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:text="North"
         android:id="@+id/chkNorth"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/txtRegion"
         android:layout_marginTop="10dp"
         android:layout_alignParentStart="true"
         android:checked="false" />
@@ -90,34 +90,32 @@
         android:layout_alignStart="@+id/chkSouth"
         android:checked="false" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <EditText
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Desired Price"
-        android:id="@+id/textView4"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/txtPrice"
+        android:hint="Minimum price"
         android:layout_below="@+id/chkEast"
-        android:layout_alignParentStart="true"
-        android:textSize="18dp"
-        android:layout_marginTop="43dp"
-        android:layout_marginLeft="7dp"/>
+        android:layout_alignStart="@+id/txtRegion"
+        android:layout_marginTop="44dp" />
 
-    <CheckBox
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Less Than 100SR"
-        android:id="@+id/chkLess"
-        android:layout_below="@+id/textView4"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentStart="true"
-        android:checked="false" />
+        android:id="@+id/imgbtnSaveChange"
+        android:src="@drawable/abc_btn_check_to_on_mtrl_015"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/chkSouth" />
 
-    <CheckBox
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="100SR or more"
-        android:id="@+id/chkMore"
-        android:layout_alignTop="@+id/chkLess"
-        android:layout_alignStart="@+id/chkWest"
-        android:checked="false" />s
+        android:id="@+id/imgbtnDeleteOffer"
+        android:src="@android:drawable/btn_dialog"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/chkEast" />
+    />
 
 </RelativeLayout>

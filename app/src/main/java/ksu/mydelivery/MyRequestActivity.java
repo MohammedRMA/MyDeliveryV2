@@ -29,10 +29,10 @@ import java.util.List;
 
 public class MyRequestActivity extends AppCompatActivity {
 
-    private static ArrayList<String> arrayList;
-    private static ArrayAdapter<String> adapter;
-    private static ArrayList<String> arrayList2;
-    private static ArrayAdapter<String> adapter2;
+    private  ArrayList<String> currentRequestList;
+    private static ArrayAdapter<String> currentRequestAdapter;
+    private  ArrayList<String> previousRequestList;
+    private static ArrayAdapter<String> previousRequestAdapter;
     //private static EditText textInput;
 
     /**
@@ -68,13 +68,13 @@ public class MyRequestActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        String[] items = {"Apple","Banana","Grape"};
-        arrayList = new ArrayList<>(Arrays.asList(items));
-        adapter = new ArrayAdapter<>(this, R.layout.list_my_request , R.id.txtItem , arrayList);
+        String[] currentRequest = {"Apple","Banana","Grape"};
+        currentRequestList = new ArrayList<>(Arrays.asList(currentRequest));
+        currentRequestAdapter = new ArrayAdapter<>(this, R.layout.list_my_request , R.id.txtItem , currentRequestList);
 
-        String[] items2 = {"Orange","mAnGo","MohammedRMA"};
-        arrayList2 = new ArrayList<>(Arrays.asList(items2));
-        adapter2 = new ArrayAdapter<>(this, R.layout.list_my_request , R.id.txtItem , arrayList2);
+        String[] previousRequest = {"Orange","mAnGo","MohammedRMA"};
+        previousRequestList = new ArrayList<>(Arrays.asList(previousRequest));
+        previousRequestAdapter = new ArrayAdapter<>(this, R.layout.list_my_request , R.id.txtItem , previousRequestList);
 
     }
 
@@ -129,16 +129,16 @@ public class MyRequestActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_my_request, container, false);
+           View rootView = inflater.inflate(R.layout.fragment_my_request, container, false);
             ListView lvMyReq = (ListView)  rootView.findViewById(R.id.lvMyRequest);
           /*  TextView textView = (TextView) rootView.findViewById(R.id.section_label);
            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));*/
 
             if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-                lvMyReq.setAdapter(adapter);
+                lvMyReq.setAdapter(currentRequestAdapter);
             }
             else {
-                lvMyReq.setAdapter(adapter2);
+                lvMyReq.setAdapter(previousRequestAdapter);
             }
 
 

@@ -1,6 +1,5 @@
 package ksu.mydelivery;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,42 +13,38 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-public class HomeActivity extends AppCompatActivity
+public class HomeAdminActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_home_admin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //toolbar.setNavigationIcon(R.drawable.ic_menu_camera);
         setSupportActionBar(toolbar);
 
-
-        FloatingActionButton addRequest = (FloatingActionButton) findViewById(R.id.fabAddRequest);
-        addRequest.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, AddRequestActivity.class));
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
+                startActivity(new Intent(HomeAdminActivity.this, SuspendUserActivity.class));
+
+
             }
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-
-        RegularUser user = (RegularUser) getIntent().getSerializableExtra("RegularUser");
-        Toast.makeText(HomeActivity.this, user.getPhoneNumber(), Toast.LENGTH_LONG).show();
-
     }
 
     @Override
@@ -65,7 +60,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.home_admin, menu);
         return true;
     }
 
@@ -91,22 +86,18 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
             // Handle the camera action
-        } else if (id == R.id.nav_myRequest) {
-            startActivity(new Intent(HomeActivity.this, MyRequestActivity.class));
-        }
-        else if (id == R.id.nav_logOut) {
-            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+        } else if (id == R.id.nav_logOut) {
+            startActivity(new Intent(HomeAdminActivity.this, LoginActivity.class));
             finish();
         } else if (id == R.id.nav_share) {
-            startActivity(new Intent(HomeActivity.this, ShareActivity.class));
+            startActivity(new Intent(HomeAdminActivity.this, ShareActivity.class));
         } else if (id == R.id.nav_contact) {
-            startActivity(new Intent(HomeActivity.this, ContactActivity.class));
+            startActivity(new Intent(HomeAdminActivity.this, ContactActivity.class));
         } else if (id == R.id.nav_tips) {
-            startActivity(new Intent(HomeActivity.this, TipsActivity.class));
+            startActivity(new Intent(HomeAdminActivity.this, TipsActivity.class));
         } else if (id == R.id.nav_about) {
-            startActivity(new Intent(HomeActivity.this, AboutActivity.class));
+            startActivity(new Intent(HomeAdminActivity.this, AboutActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
