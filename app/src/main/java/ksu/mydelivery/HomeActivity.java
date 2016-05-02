@@ -1,12 +1,9 @@
 package ksu.mydelivery;
 
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,9 +14,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import com.kosalgeek.genasync12.AsyncResponse;
+import com.kosalgeek.genasync12.PostResponseAsyncTask;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private RegularUser user;
+    private ArrayList<String> jsonList;
+    private ArrayList<Request> requestList;
+    private Request request;
 
 
     @Override
@@ -31,13 +39,7 @@ public class HomeActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-        FloatingActionButton addRequest = (FloatingActionButton) findViewById(R.id.fabAddRequest);
-        addRequest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, AddRequestActivity.class));
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -49,9 +51,19 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        RegularUser user = (RegularUser) getIntent().getSerializableExtra("RegularUser");
-        //   Toast.makeText(HomeActivity.this, user.getPhoneNumber(), Toast.LENGTH_LONG).show();
+        user = (RegularUser) getIntent().getSerializableExtra("RegularUser");
 
+
+        FloatingActionButton addRequest = (FloatingActionButton) findViewById(R.id.fabAddRequest);
+        addRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, AddRequestActivity.class);
+                intent.putExtra("RegularUser", user);
+                startActivity(intent);
+
+            }
+        });
 
     }
 
@@ -95,13 +107,52 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_profile) {
             startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
-            // Handle the camera action
+
         } else if (id == R.id.nav_myRequest) {
-            startActivity(new Intent(HomeActivity.this, MyRequestActivity.class));
-        }
-        else if (id == R.id.nav_logOut) {
-            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-            finish();
+
+
+            HashMap getRequests = new HashMap();
+            getRequests.put("txtUid", String.valueOf(user.getID()) );
+
+            PostResponseAsyncTask getOffers = new PostResponseAsyncTask(HomeActivity.this, getRequests, new AsyncResponse() {
+                @Override
+                public void processFinish(String s) {
+
+                    jsonList = new ArrayList<>();
+                    requestList = new ArrayList<>();
+
+                    try {
+                        JSONArray jsonArray = new JSONArray(s);
+                        JSONObject jsonObject ;
+
+                        if (jsonArray != null) {
+                            for (int i=0;i<jsonArray.length();i++){
+                                jsonList.add(jsonArray.get(i).toString());
+                            }
+                        }
+
+                        for (int i=0;i<jsonList.size();i++){
+                            jsonObject = new JSONObject(jsonList.get(i));
+                            request = new Request(jsonObject.getInt("requestID"), jsonObject.getString("title"), jsonObject.getString("description"), jsonObject.getString("type")
+                                    , jsonObject.getString("source_address"), jsonObject.getString("destination_address"),jsonObject.getDouble("price")
+                                    ,jsonObject.getString("due_time"),jsonObject.getString("submit_time"),jsonObject.getString("contact_info"),jsonObject.getString("request_status"), jsonObject.getInt("userID_added"));
+                            requestList.add(request);
+                        }
+
+                        Intent intent = new Intent(HomeActivity.this , MyRequestActivity.class);
+                        intent.putExtra("Requests" , requestList);
+                        startActivity(intent);
+
+
+                    } catch (org.json.JSONException e) {
+                        Toast.makeText(HomeActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            });
+
+            getOffers.execute("http://10.0.2.2/user/myRequest.php");
+
         } else if (id == R.id.nav_share) {
             startActivity(new Intent(HomeActivity.this, ShareActivity.class));
         } else if (id == R.id.nav_contact) {

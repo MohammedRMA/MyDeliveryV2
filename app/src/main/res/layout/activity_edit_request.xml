@@ -28,19 +28,23 @@
         android:layout_centerHorizontal="true"
         android:hint="Description" />
 
-    <EditText
+    <Spinner
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtType"
+        android:id="@+id/spnType"
         android:layout_below="@+id/txtDescription"
         android:layout_centerHorizontal="true"
-        android:hint="Type" />
+        android:spinnerMode="dropdown"
+        android:textAlignment="textStart"
+        android:entries="@array/TypeArray"
+        />
+
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtSrcAddress"
-        android:layout_below="@+id/txtType"
+        android:layout_below="@+id/spnType"
         android:layout_centerHorizontal="true"
         android:hint="Source Address" />
 

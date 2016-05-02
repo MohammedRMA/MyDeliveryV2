@@ -19,7 +19,7 @@
         android:hint="Title" />
 
     <EditText
-        android:inputType="textMultiLine"
+
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtDescr"
@@ -71,20 +71,18 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="date"
         android:ems="10"
         android:id="@+id/txtDueTime"
         android:layout_below="@+id/lblRegion"
         android:layout_centerHorizontal="true"
-        android:hint="Due time"
-        android:text="Submitted At:" />
+        android:hint="Due time" />
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
-        android:id="@+id/txtContact"
+        android:id="@+id/txtContactInfo"
         android:layout_below="@+id/txtDueTime"
         android:layout_centerHorizontal="true"
         android:hint="Contact information" />
@@ -94,7 +92,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnAddRequest"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/txtContact"
+        android:layout_alignEnd="@+id/txtContactInfo"
         android:src="@android:drawable/checkbox_on_background"
 
         />
