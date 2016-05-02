@@ -14,7 +14,7 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnTwitter"
+        android:id="@+id/btnWhats"
         android:layout_marginTop="62dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -23,23 +23,21 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnWhats"
-        android:layout_below="@+id/btnTwitter"
-        android:layout_alignStart="@+id/btnTwitter"
-        android:layout_marginTop="43dp"
+        android:id="@+id/btnTwitter"
+        android:src="@drawable/ic_action_twitter"
         android:background="@color/gray"
-        />
+        android:layout_above="@+id/btnInstagram"
+        android:layout_toStartOf="@+id/btnWhats"
+        android:layout_marginBottom="50dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnInstagram"
         android:src="@drawable/ic_action_instagram"
-        android:layout_below="@+id/btnWhats"
-        android:layout_alignStart="@+id/btnTwitter"
-        android:layout_marginTop="43dp"
         android:background="@color/gray"
-        />
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/btnWhats" />
 
     <ImageButton
         android:layout_width="wrap_content"

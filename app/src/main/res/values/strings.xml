@@ -108,4 +108,5 @@
     <string name="title_activity_add_offer22">Sign in</string>
     <string name="title_activity_my_offer2">MyOffer2Activity</string>
     <string name="title_activity_home_admin">HomeAdminActivity</string>
+    <string name="title_activity_map">Map</string>
 </resources>

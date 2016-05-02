@@ -31,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     private Provider provider;
     private String phone, pass;
     private boolean isUser;
+    private Admin admin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,14 +169,52 @@ public class LoginActivity extends AppCompatActivity {
                                                 startActivity(intent);
                                                 finish();
 
-                                            } else {
-                                                Toast.makeText(LoginActivity.this, "Wrong phone number or password", Toast.LENGTH_LONG).show();
-                                                (findViewById(R.id.txtContactInfo)).requestFocus();
-                                                ((EditText) (findViewById(R.id.txtContactInfo))).setError("");
-                                                (findViewById(R.id.txtPass)).requestFocus();
-                                                ((EditText) (findViewById(R.id.txtPass))).setError("");
+                                            }else { // Info doesn't exist on user table we should search for provider table
+
+                                                HashMap postAdminData = new HashMap();
+                                                postAdminData.put("txtPhone", phone);
+                                                postAdminData.put("txtPassword", pass);
+
+                                                PostResponseAsyncTask loginAdmin = new PostResponseAsyncTask(LoginActivity.this, postAdminData, new AsyncResponse() {
+                                                    @Override
+                                                    public void processFinish(String s) {
+                                                        if (s.contains("success")) {
+
+                                                            s = s.replace("success ", "");
+
+                                                            Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_LONG).show();
+                                                            //   user = new ArrayList<String>();
+                                                            try {
+                                                                JSONObject json = new JSONObject(s);
+
+                                                                admin = new Admin(json.getString("password"), json.getString("email"), json.getString("first_name"), json.getString("last_name")
+                                                                        , json.getString("phone_number"), json.getString("birth_date"));
+                                                                admin.setID(Integer.parseInt(json.getString("adminID")));
+
+                                                            } catch (org.json.JSONException e) {
+                                                                Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                                                            }
+                                                            Intent intent = new Intent(LoginActivity.this, HomeAdminActivity.class);
+                                                            intent.putExtra("Admin", admin);
+
+                                                            startActivity(intent);
+                                                            finish();
+
+                                                        } else {
+                                                            Toast.makeText(LoginActivity.this, "Wrong phone number or password", Toast.LENGTH_LONG).show();
+                                                            (findViewById(R.id.txtContactInfo)).requestFocus();
+                                                            ((EditText) (findViewById(R.id.txtContactInfo))).setError("");
+                                                            (findViewById(R.id.txtPass)).requestFocus();
+                                                            ((EditText) (findViewById(R.id.txtPass))).setError("");
+
+                                                        }
+                                                    }
+                                                });
+
+                                                loginAdmin.execute("http://10.0.2.2/admin/login.php");
 
                                             }
+
                                         }
                                     });
 

@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ksu.mydelivery.SuspendUserActivity">
+    tools:context="ksu.mydelivery.VerifyProviderActivity">
 
     <EditText
         android:layout_width="wrap_content"
@@ -15,27 +15,26 @@
         android:inputType="phone"
         android:ems="10"
         android:textSize="20dp"
-        android:id="@+id/txtUserPhone"
+        android:id="@+id/txtProviderPhone"
         android:layout_marginTop="48dp"
         android:layout_marginLeft="30dp"
-        android:hint="User's phone number" />
+        android:hint="Provider's phone number" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imgbtnSearchUser"
-        android:layout_alignBottom="@+id/txtUserPhone"
-        android:layout_toEndOf="@+id/txtUserPhone"
+        android:id="@+id/imgbtnSearchProvider"
+        android:layout_toEndOf="@+id/txtProviderPhone"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="55dp"
         android:background="@color/white"
-        android:src="@drawable/ic_menu_search"
-        android:layout_alignTop="@+id/txtUserPhone" />
+        android:src="@drawable/ic_menu_search"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Suspend User"
-        android:id="@+id/btnSuspend"
+        android:text="Verify Provider"
+        android:id="@+id/btnVerify"
         android:layout_marginBottom="151dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
@@ -43,8 +42,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="UnSuspend User"
-        android:id="@+id/btnUnSuspend"
+        android:text="Unverify Provider"
+        android:id="@+id/btnUnVerify"
         android:layout_marginBottom="56dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
@@ -54,15 +53,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/txtvName"
         android:textSize="18dp"
-        android:layout_below="@+id/txtUserPhone"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="61dp" />
+        android:layout_marginTop="44dp"
+        android:layout_below="@+id/txtProviderPhone"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/txtvIsSuspended"
+        android:id="@+id/txtvIsVerified"
         android:textSize="18dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />

@@ -17,6 +17,8 @@ import android.view.MenuItem;
 public class HomeAdminActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private  Admin admin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,18 +26,36 @@ public class HomeAdminActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        admin = (Admin) getIntent().getSerializableExtra("Admin");
+
+
+        FloatingActionButton fabSuspendUser = (FloatingActionButton) findViewById(R.id.fabSuspendUser);
+        fabSuspendUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-                startActivity(new Intent(HomeAdminActivity.this, SuspendUserActivity.class));
-
-
+                Intent intent = new Intent(HomeAdminActivity.this, SuspendUserActivity.class);
+                intent.putExtra("Admin",admin);
+                startActivity(intent);
             }
         });
+
+
+        FloatingActionButton fabVerifyProvider = (FloatingActionButton) findViewById(R.id.fabVerifyProvider);
+        fabVerifyProvider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
+                Intent intent = new Intent(HomeAdminActivity.this, VerifyProviderActivity.class);
+                intent.putExtra("Admin",admin);
+                startActivity(intent);
+            }
+        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -45,6 +65,13 @@ public class HomeAdminActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+
+
+
+
     }
 
     @Override

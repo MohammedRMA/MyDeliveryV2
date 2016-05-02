@@ -1,10 +1,12 @@
 package ksu.mydelivery;
 
 import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +49,9 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-
         RegularUser user = (RegularUser) getIntent().getSerializableExtra("RegularUser");
-        Toast.makeText(HomeActivity.this, user.getPhoneNumber(), Toast.LENGTH_LONG).show();
+        //   Toast.makeText(HomeActivity.this, user.getPhoneNumber(), Toast.LENGTH_LONG).show();
+
 
     }
 
