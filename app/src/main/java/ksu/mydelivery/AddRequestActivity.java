@@ -53,6 +53,11 @@ public class AddRequestActivity extends AppCompatActivity {
           user = (RegularUser) getIntent().getSerializableExtra("RegularUser");
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
     public void AddRequest () {
 
         title = ((EditText) findViewById(R.id.txtTitle)).getText().toString();
@@ -84,7 +89,7 @@ public class AddRequestActivity extends AppCompatActivity {
             postData.put("txtPrice", price );
             postData.put("txtDueTime", dueTime);
             postData.put("txtContactInfo", contactInfo);
-           postData.put("txtUserIDAdded", userID );
+            postData.put("txtUserIDAdded", userID );
 
 
 

@@ -8,7 +8,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ksu.mydelivery.EditOfferActivity"
-    android:background="@color/gray">
+    android:background="@drawable/mydeliverybackground112"
+    >
 
     <Spinner
         android:layout_width="fill_parent"
@@ -42,6 +43,7 @@
         android:entries="@array/ToArray" />
 
     <TextView
+        android:textColor="@color/lightBlue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Regions:"
@@ -91,6 +93,8 @@
         android:checked="false" />
 
     <EditText
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
@@ -102,18 +106,24 @@
         android:layout_marginTop="44dp" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/imgbtnSaveChange"
-        android:src="@drawable/abc_btn_check_to_on_mtrl_015"
+        android:src="@drawable/ic_action_edit"
+        android:scaleType="fitCenter"
+        android:background="@color/light_gray"
+        android:baselineAlignBottom="false"
         android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/chkSouth" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/imgbtnDeleteOffer"
-        android:src="@android:drawable/btn_dialog"
+        android:src="@drawable/ic_action_delete"
+        android:scaleType="fitCenter"
+        android:background="@color/light_gray"
+        android:baselineAlignBottom="false"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/chkEast" />
     />

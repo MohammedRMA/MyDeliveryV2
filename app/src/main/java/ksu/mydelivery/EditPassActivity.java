@@ -15,8 +15,9 @@ import java.util.HashMap;
 
 public class EditPassActivity extends AppCompatActivity {
 
-    private User user;
-    private  Provider provider;
+    private RegularUser user;
+    private Provider provider;
+    private Admin admin;
 
 
     private String  oldPassword , newPassword , newPassword2;
@@ -31,6 +32,7 @@ public class EditPassActivity extends AppCompatActivity {
 
         provider = (Provider) getIntent().getSerializableExtra("Provider");
         user = (RegularUser) getIntent().getSerializableExtra("User");
+        admin = (Admin) getIntent().getSerializableExtra("Admin");
 
 
         Button editPass = (Button) findViewById(R.id.btnSaveChange);
@@ -43,6 +45,9 @@ public class EditPassActivity extends AppCompatActivity {
                 }
                 if (provider != null) {
                     changePasswordProvider();
+                }
+                if (admin != null) {
+                    changePasswordAdmin();
                 }
             }
         });
@@ -80,15 +85,17 @@ public class EditPassActivity extends AppCompatActivity {
 
                 else {
 
-                    provider.setPassword(newPassword);
+                    user.setPassword(newPassword);
 
                     HashMap updateUser = new HashMap();
 
-                    updateUser.put("txtPid" , String.valueOf(user.getID()));
+                    updateUser.put("txtUid" , String.valueOf(user.getID()));
                     updateUser.put("txtPassword" , newPassword);
                     updateUser.put("txtEmail" , String.valueOf(user.getEmail()));
                     updateUser.put("txtPhone" , String.valueOf(user.getPhoneNumber()));
                     updateUser.put("txtBdate" , String.valueOf(user.getBirthDate()));
+                    updateUser.put("txtAddress" , String.valueOf(user.getAddress()));
+
 
                     PostResponseAsyncTask task1 = new PostResponseAsyncTask(EditPassActivity.this, updateUser, new AsyncResponse() {
                         @Override
@@ -97,7 +104,7 @@ public class EditPassActivity extends AppCompatActivity {
 
                                 Toast.makeText(EditPassActivity.this, "Success", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(EditPassActivity.this, HomeActivity.class);
-                                intent.putExtra("User",user);
+                                intent.putExtra("RegularUser",user);
                                 startActivity(intent);
                                 finish();
                             }
@@ -119,10 +126,6 @@ public class EditPassActivity extends AppCompatActivity {
             }
 
         }
-
-
-
-
     }
 
 
@@ -171,7 +174,7 @@ public class EditPassActivity extends AppCompatActivity {
                     updateProvider.put("txtPhone" , String.valueOf(provider.getPhoneNumber()));
                     updateProvider.put("txtBdate" , String.valueOf(provider.getBirthDate()));
 
-                    PostResponseAsyncTask task1 = new PostResponseAsyncTask(EditPassActivity.this, updateProvider, new AsyncResponse() {
+                PostResponseAsyncTask task1 = new PostResponseAsyncTask(EditPassActivity.this, updateProvider, new AsyncResponse() {
                         @Override
                         public void processFinish(String s) {
                             if (s.contains("success")) {
@@ -182,11 +185,12 @@ public class EditPassActivity extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }
-                            else {
-                                Toast.makeText(EditPassActivity.this, "Failed", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
+                              else {
+                                            Toast.makeText(EditPassActivity.this, "Failed", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+
 
                     task1.execute("http://10.0.2.2/provider/updateProvider.php");}
         }
@@ -198,13 +202,82 @@ public class EditPassActivity extends AppCompatActivity {
             }
 
 
-
-
-
-
     }
 
 
+    public void changePasswordAdmin() {
 
-    }
+
+            EoldPassword = (EditText) findViewById(R.id.txtOldPass);
+            EnewPassword = (EditText) findViewById(R.id.txtNewPass) ;
+            EnewPassword2 = (EditText) findViewById(R.id.txtConfirmPass) ;
+
+            oldPassword = String.valueOf(EoldPassword.getText());
+            newPassword= String.valueOf(EnewPassword.getText());
+            newPassword2= String.valueOf(EnewPassword2.getText());
+
+
+            if( oldPassword.equals( String.valueOf( admin.getPassword() ) ) ){
+
+                if(newPassword.equals(newPassword2)){
+
+
+                    if (newPassword.length() < 6 ) {
+                        (findViewById(R.id.txtNewPass)).requestFocus();
+                        ((EditText) (findViewById(R.id.txtNewPass))).setError("FIELD SHOULD AT LEAST 6 VARIABLES");
+                    }
+
+                    if (newPassword.equals("")) {
+
+                        (findViewById(R.id.txtNewPass)).requestFocus();
+                        ((EditText) (findViewById(R.id.txtNewPass))).setError("FIELD CANNOT BE EMPTY");
+
+                    }
+
+                    else {
+
+                        admin.setPassword(newPassword);
+
+                        HashMap updateAdmin = new HashMap();
+
+                        updateAdmin.put("txtAid" , String.valueOf(admin.getID()));
+                        updateAdmin.put("txtPassword" , newPassword);
+                        updateAdmin.put("txtEmail" , String.valueOf(admin.getEmail()));
+                        updateAdmin.put("txtPhone" , String.valueOf(admin.getPhoneNumber()));
+                        updateAdmin.put("txtBdate" , String.valueOf(admin.getBirthDate()));
+
+                        PostResponseAsyncTask task1 = new PostResponseAsyncTask(EditPassActivity.this, updateAdmin, new AsyncResponse() {
+                            @Override
+                            public void processFinish(String s) {
+                                if (s.contains("success")) {
+
+                                    Toast.makeText(EditPassActivity.this, "Success", Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(EditPassActivity.this, HomeAdminActivity.class);
+                                    intent.putExtra("Admin" , admin);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                else {
+                                    Toast.makeText(EditPassActivity.this, "Failed", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+
+                        task1.execute("http://10.0.2.2/admin/updateAdmin.php");}
+
+                }
+
+                else {
+
+                    (findViewById(R.id.txtOldPass)).requestFocus();
+                    ((EditText) (findViewById(R.id.txtOldPass))).setError("PLEASE ENTER A CORRECT PASSWORD");
+
+                }
+
+            }
+        }
+
+
+
+}
 

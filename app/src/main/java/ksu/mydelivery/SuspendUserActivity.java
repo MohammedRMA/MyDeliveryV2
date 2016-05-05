@@ -85,7 +85,7 @@ public class SuspendUserActivity extends AppCompatActivity {
                             JSONObject json = new JSONObject(s);
 
                             user = new RegularUser(json.getString("password"), json.getString("email"), json.getString("first_name"), json.getString("last_name")
-                                    , json.getString("phone_number"), json.getString("address") , json.getString("nationality") , json.getString("birth_date") , json.getString("is_suspended"));
+                                    , json.getString("phone_number"), json.getString("birth_date"), json.getString("address"), json.getString("nationality")  , json.getString("is_suspended") , json.getDouble("rate_app") );
                             user.setID(Integer.parseInt(json.getString("userID")));
 
                         } catch (org.json.JSONException e) {
@@ -125,7 +125,15 @@ public class SuspendUserActivity extends AppCompatActivity {
             Tsuspend = (TextView) findViewById(R.id.txtvIsSuspended);
             Tsuspend.setText(" ");
 
+
+            Toast.makeText(SuspendUserActivity.this, "user phone  =  " + userPhone, Toast.LENGTH_LONG).show();
+            Toast.makeText(SuspendUserActivity.this, " another user phone  =  " + String.valueOf(user.getPhoneNumber()), Toast.LENGTH_LONG).show();
+
+            userPhone=userPhone.replace("0","");
+            Toast.makeText(SuspendUserActivity.this, "user phone  =  " + userPhone, Toast.LENGTH_LONG).show();
+
             if (!userPhone.equals(String.valueOf(user.getPhoneNumber()))) {
+                Toast.makeText(SuspendUserActivity.this, " phone not equal  ", Toast.LENGTH_LONG).show();
                 (findViewById(R.id.txtUserPhone)).requestFocus();
                 ((EditText) (findViewById(R.id.txtUserPhone))).setError("YOU SHOULD SEARCH FOR USER FIRST");
             } else {
@@ -153,6 +161,8 @@ public class SuspendUserActivity extends AppCompatActivity {
             }
         }
         else {
+            Toast.makeText(SuspendUserActivity.this, "user null  ==  ", Toast.LENGTH_LONG).show();
+
             (findViewById(R.id.txtUserPhone)).requestFocus();
             ((EditText) (findViewById(R.id.txtUserPhone))).setError("YOU SHOULD SEARCH FOR USER FIRST");
         }

@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ProfileProviderActivity extends AppCompatActivity {
@@ -19,15 +20,21 @@ public class ProfileProviderActivity extends AppCompatActivity {
     private String fName , lName , phone ,email , bDate , nationID , password;
     private EditText EfName , ElName , Ephone ,Eemail , EbDate , EnationID , Epassword ;
 
+    private ArrayList<Request> requestList;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_prfile_provider);
+        setContentView(R.layout.activity_profile_provider);
 
 
         provider = (Provider) getIntent().getSerializableExtra("Provider");
+
+        requestList = new ArrayList<>();
+        requestList = (ArrayList<Request>) getIntent().getSerializableExtra("Requests");
+
 
         fName = provider.getfName();
         lName = provider.getlName();
@@ -64,7 +71,6 @@ public class ProfileProviderActivity extends AppCompatActivity {
 
 
     }
-
 
 
     public void changePass () {
@@ -132,6 +138,8 @@ public class ProfileProviderActivity extends AppCompatActivity {
                         Toast.makeText(ProfileProviderActivity.this, "Success", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(ProfileProviderActivity.this, HomeProviderActivity.class);
                         intent.putExtra("Provider",provider);
+                        intent.putExtra("Requests" , requestList);
+
                         startActivity(intent);
                         finish();
                     }

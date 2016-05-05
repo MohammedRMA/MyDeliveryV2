@@ -111,7 +111,7 @@
         <activity android:name=".ProfileProviderActivity" />
         <activity
             android:name=".HomeAdminActivity"
-            android:label="@string/title_activity_home_admin"
+            android:label="Home Admin"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SuspendUserActivity" />
         <activity android:name=".VerifyProviderActivity" />
@@ -128,8 +128,13 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".AssignedRequestActivity" />
-        <activity android:name=".AssignProviderActivity"
-            android:label="Assign Provider"></activity>
+        <activity
+            android:name=".MailSenderActivity"
+            android:label="Forget Password" />
+        <activity
+            android:name=".RateAppActivity"
+            android:label="Rate Application" />
+        <activity android:name=".ProfileAdminActivity"></activity>
     </application>
 
 </manifest>

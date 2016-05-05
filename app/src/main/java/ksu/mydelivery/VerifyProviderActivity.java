@@ -86,7 +86,7 @@ public class VerifyProviderActivity extends AppCompatActivity {
                             JSONObject json = new JSONObject(s);
 
                             provider = new Provider(json.getString("password"), json.getString("email"), json.getString("first_name"), json.getString("last_name")
-                                    , json.getString("phone_number"), json.getString("birth_date"), json.getLong("nationalID"), json.getString("is_verified"));
+                                    , json.getString("phone_number"), json.getString("birth_date"), json.getLong("nationalID") , json.getString("is_verified") , json.getDouble("rate_app"));
                             provider.setID(Integer.parseInt(json.getString("providerID")));
                         } catch (org.json.JSONException e) {
                             Toast.makeText(VerifyProviderActivity.this, e.toString(), Toast.LENGTH_LONG).show();

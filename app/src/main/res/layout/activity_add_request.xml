@@ -8,24 +8,29 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ksu.mydelivery.AddRequestActivity"
-    android:background="@color/gray">
+    android:background="@drawable/mydeliverybackground112">
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtTitle"
         android:layout_alignParentTop="true"
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
         android:layout_centerHorizontal="true"
-        android:hint="Title" />
+        android:hint="Title"
+        />
 
     <EditText
-
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtDescr"
         android:layout_below="@+id/txtTitle"
         android:layout_centerHorizontal="true"
-        android:hint="Description" />
+        android:hint="Description"
+       />
 
     <Spinner
         android:layout_width="fill_parent"
@@ -39,6 +44,8 @@
         />
 
     <EditText
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textPostalAddress"
@@ -49,6 +56,8 @@
         android:hint="From" />
 
     <EditText
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textPostalAddress"
@@ -59,6 +68,8 @@
         android:hint="To" />
 
     <EditText
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
@@ -69,6 +80,8 @@
         android:hint="Price" />
 
     <EditText
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -78,6 +91,8 @@
         android:hint="Due time" />
 
     <EditText
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="phone"
@@ -88,13 +103,14 @@
         android:hint="Contact information" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:id="@+id/btnAddRequest"
+        android:src="@drawable/ic_action_add"
+        android:background="@color/light_gray"
+        android:baselineAlignBottom="false"
+        android:scaleType="fitCenter"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/txtContactInfo"
-        android:src="@android:drawable/checkbox_on_background"
-
-        />
+        android:layout_alignEnd="@+id/txtContactInfo" />
 
 </RelativeLayout>

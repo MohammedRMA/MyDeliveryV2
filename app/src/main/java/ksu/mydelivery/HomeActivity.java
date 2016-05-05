@@ -13,6 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
@@ -28,6 +31,8 @@ public class HomeActivity extends AppCompatActivity
     private ArrayList<String> jsonList;
     private ArrayList<Request> requestList;
     private Request request;
+
+
 
 
     @Override
@@ -47,11 +52,23 @@ public class HomeActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        user = (RegularUser) getIntent().getSerializableExtra("RegularUser");
+
+        requestList = new ArrayList<>();
+        requestList = (ArrayList<Request>) getIntent().getSerializableExtra("Requests");
+
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View hView =  navigationView.getHeaderView(0);
 
 
-        user = (RegularUser) getIntent().getSerializableExtra("RegularUser");
+            TextView name = (TextView) hView.findViewById(R.id.txtProfileName);
+            TextView phone = (TextView) hView.findViewById(R.id.txtProfilePhone);
+            name.setText(user.getfName() + " " + user.getlName());
+            phone.setText("0" + user.getPhoneNumber());
+
+
 
 
         FloatingActionButton addRequest = (FloatingActionButton) findViewById(R.id.fabAddRequest);
@@ -60,10 +77,34 @@ public class HomeActivity extends AppCompatActivity
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, AddRequestActivity.class);
                 intent.putExtra("RegularUser", user);
+                intent.putExtra("Requests", requestList);
+
                 startActivity(intent);
 
             }
         });
+
+
+
+            final ListView lvRequests = (ListView) findViewById(R.id.lvRequests);
+
+            lvRequests.setAdapter(new RequestListBaseAdapter(this, requestList));
+
+            lvRequests.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                    Object o = lvRequests.getItemAtPosition(position);
+                    Request request = (Request) o;
+
+              /*  Intent intent = new Intent(HomeActivity.this, EditOfferActivity.class);  ////// تتعدل الى اسناد طلب *******
+                intent.putExtra("Requests", requestList);
+                intent.putExtra("Request", request);
+                startActivity(intent);
+                finish();
+
+                */
+                }
+            });
 
     }
 
@@ -106,7 +147,11 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+
+            Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+            intent.putExtra("RegularUser", user);
+            intent.putExtra("Requests" , requestList);
+            startActivity(intent);
 
         } else if (id == R.id.nav_myRequest) {
 
@@ -153,17 +198,21 @@ public class HomeActivity extends AppCompatActivity
 
             getOffers.execute("http://10.0.2.2/user/myRequest.php");
 
-        } else if (id == R.id.nav_logOut) {
-
+        }else if (id == R.id.nav_logOut) {
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-            finish();
-
-        } else if (id == R.id.nav_share) {
+            finish();        } else if (id == R.id.nav_share) {
             startActivity(new Intent(HomeActivity.this, ShareActivity.class));
         } else if (id == R.id.nav_contact) {
             startActivity(new Intent(HomeActivity.this, ContactActivity.class));
         } else if (id == R.id.nav_tips) {
             startActivity(new Intent(HomeActivity.this, TipsActivity.class));
+        } else if (id == R.id.nav_rate) {
+            Intent intent = new Intent(HomeActivity.this, RateAppActivity.class);
+            intent.putExtra("RegularUser", user);
+            intent.putExtra("Requests" , requestList);
+
+            startActivity(intent);
+
         } else if (id == R.id.nav_about) {
             startActivity(new Intent(HomeActivity.this, AboutActivity.class));
         }

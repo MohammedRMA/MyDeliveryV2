@@ -318,7 +318,7 @@ public class EditOfferActivity extends AppCompatActivity {
         south = (CheckBox) findViewById(R.id.chkSouth);
         west = (CheckBox) findViewById(R.id.chkWest);
 
-        minPrice = (EditText) findViewById(R.id.lblRegion);
+        minPrice = (EditText) findViewById(R.id.txtPrice);
         price = minPrice.getText().toString();
 
         if((day.equals("--Available Day(s)--") || from.equals("--From--") || to.equals("--To--"))

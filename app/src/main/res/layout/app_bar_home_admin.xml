@@ -38,6 +38,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_alert" />
+        android:src="@android:drawable/ic_dialog_alert"
+        />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvRequests"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/mydeliverybackground11"
+        android:layout_marginTop="58dp"/>
 
 </android.support.design.widget.CoordinatorLayout>

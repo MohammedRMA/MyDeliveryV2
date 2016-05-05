@@ -8,36 +8,41 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ksu.mydelivery.ProfileActivity"
-    android:background="@color/gray"
-
+    android:background="@drawable/mydeliverybackground112"
     >
 
 
 
         <EditText
+            android:textColor="@color/lightBlue"
+            android:textColorHint="@color/lightBlue"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/txtFiristN"
+            android:id="@+id/txtFirstN"
             android:layout_centerHorizontal="true"
             android:hint="First name"
             android:enabled="false"
             />
 
         <EditText
+            android:textColor="@color/lightBlue"
+            android:textColorHint="@color/lightBlue"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
             android:id="@+id/txtLastN"
-            android:layout_below="@+id/txtFiristN"
+            android:layout_below="@+id/txtFirstN"
             android:layout_centerHorizontal="true"
             android:hint="Last name"
             android:enabled="false"
             />
 
         <EditText
+            android:textColor="@color/lightBlue"
+            android:textColorHint="@color/lightBlue"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
@@ -45,10 +50,11 @@
             android:id="@+id/txtContactInfo"
             android:layout_below="@+id/txtLastN"
             android:layout_centerHorizontal="true"
-            android:hint="Phone number"
-            android:enabled="false" />
+            android:hint="Phone number" />
 
         <EditText
+            android:textColor="@color/lightBlue"
+            android:textColorHint="@color/lightBlue"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -60,6 +66,8 @@
 
 
         <EditText
+            android:textColor="@color/lightBlue"
+            android:textColorHint="@color/lightBlue"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="date"
@@ -70,6 +78,8 @@
             android:hint="Birth date" />
 
         <EditText
+            android:textColor="@color/lightBlue"
+            android:textColorHint="@color/lightBlue"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txtAddress"
@@ -78,14 +88,18 @@
             android:hint="Address" />
 
         <EditText
+            android:textColor="@color/lightBlue"
+            android:textColorHint="@color/lightBlue"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txtNation"
             android:layout_below="@+id/txtAddress"
             android:layout_centerHorizontal="true"
-            android:hint="Nationality" />
+            android:hint="Nationality"
+            android:enabled="false" />
 
     <Button
+        android:textColor="@color/lightBlue"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Change Password"
@@ -93,6 +107,7 @@
         android:layout_below="@+id/txtNation" />
 
     <Button
+        android:textColor="@color/lightBlue"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Save Changes"

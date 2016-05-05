@@ -10,7 +10,8 @@
     android:paddingRight="16dp"
     android:paddingTop="16dp"
     tools:context="ksu.mydelivery.AddOfferActivity"
-    android:background="@color/gray">
+    android:background="@drawable/mydeliverybackground112"
+    >
 
     <Spinner
         android:layout_width="fill_parent"
@@ -48,6 +49,7 @@
         android:layout_height="wrap_content"
         android:text="Regions:"
         android:id="@+id/txtRegion"
+        android:textColor="@color/lightBlue"
         android:layout_below="@+id/spnFrom"
         android:layout_alignParentStart="true"
         android:textSize="18dp"
@@ -99,18 +101,21 @@
         android:inputType="numberDecimal"
         android:ems="10"
         android:id="@+id/lblRegion"
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
         android:layout_above="@+id/imgbtnAddOffer"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="35dp"
         android:hint="Minimum price" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:id="@+id/imgbtnAddOffer"
-        android:src="@drawable/ic_menu_add"
+        android:src="@drawable/ic_action_add"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/chkWest"
-        android:background="@color/black_overlay"
-        />
+        android:background="@color/light_gray"
+        android:baselineAlignBottom="false"
+        android:scaleType="fitCenter"/>
 
 </RelativeLayout>

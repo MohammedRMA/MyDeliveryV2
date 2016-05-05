@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ksu.mydelivery.SignUpProviderActivity"
-    android:background="@color/gray">
+    android:background="@drawable/mydeliverybackground112">
 
     <!-- Login progress -->
     <ProgressBar
@@ -21,6 +21,8 @@
         android:visibility="gone" />
 
     <EditText
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtNationID"
@@ -39,9 +41,11 @@
         android:layout_marginTop="48dp" />
 
     <Button
+        android:textColor="@color/lightBlue"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Sign up"
+        android:textSize="20dp"
         android:id="@+id/btnSignupProvider"
         android:layout_below="@+id/gallery"
         android:layout_centerHorizontal="true"

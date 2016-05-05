@@ -14,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,8 @@ public class HomeProviderActivity extends AppCompatActivity
     private ArrayList<Offer> offerList;
     private Offer offer;
 
+    private ArrayList<Request> requestList;
+    private Request request;
 
 
 
@@ -45,7 +49,10 @@ public class HomeProviderActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         provider = (Provider) getIntent().getSerializableExtra("Provider");
-        Toast.makeText(HomeProviderActivity.this, provider.getPhoneNumber(), Toast.LENGTH_LONG).show();
+      //  Toast.makeText(HomeProviderActivity.this, provider.getPhoneNumber(), Toast.LENGTH_LONG).show();
+
+        requestList = new ArrayList<>();
+        requestList = (ArrayList<Request>) getIntent().getSerializableExtra("Requests");
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -56,7 +63,7 @@ public class HomeProviderActivity extends AppCompatActivity
         TextView  name = (TextView)hView.findViewById(R.id.txtProfileName);
         TextView phone = (TextView)hView.findViewById(R.id.txtProfilePhone);
         name.setText(provider.getfName() + " " + provider.getlName());
-        phone.setText(provider.getPhoneNumber());
+        phone.setText("0" + provider.getPhoneNumber());
 
 
 
@@ -79,6 +86,28 @@ public class HomeProviderActivity extends AppCompatActivity
 
             }
         });
+
+
+        final ListView lvRequests = (ListView) findViewById(R.id.lvRequests);
+
+        lvRequests.setAdapter(new RequestBaseAdapter(this, requestList));
+
+        lvRequests.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                Object o = lvRequests.getItemAtPosition(position);
+                Request request = (Request) o;
+
+              /*  Intent intent = new Intent(HomeActivity.this, EditOfferActivity.class);  ////// تتعدل الى اسناد طلب *******
+                intent.putExtra("Requests", requestList);
+                intent.putExtra("Request", request);
+                startActivity(intent);
+                finish();
+
+                */
+            }
+        });
+
     }
 
     @Override
@@ -123,19 +152,19 @@ public class HomeProviderActivity extends AppCompatActivity
 
             Intent intent = new Intent(HomeProviderActivity.this, ProfileProviderActivity.class);
             intent.putExtra("Provider", provider);
+            intent.putExtra("Requests" , requestList);
+
             startActivity(intent);
 
 
 
         } else if (id == R.id.nav_assignedRequest) {
-            startActivity(new Intent(HomeProviderActivity.this, MyRequestActivity.class));
+            startActivity(new Intent(HomeProviderActivity.this, MyRequestActivity.class));  ////////    تعديييييييييييييييل ******%%$$$$####@@@@
         } else if (id == R.id.nav_myOffer) {
-
 
 
             HashMap postOffer = new HashMap();
             postOffer.put("txtProviderID", String.valueOf(provider.getID()) );
-
 
 
             PostResponseAsyncTask getOffers = new PostResponseAsyncTask(HomeProviderActivity.this, postOffer, new AsyncResponse() {
@@ -189,7 +218,14 @@ public class HomeProviderActivity extends AppCompatActivity
             startActivity(new Intent(HomeProviderActivity.this, ContactActivity.class));
         } else if (id == R.id.nav_tips) {
             startActivity(new Intent(HomeProviderActivity.this, TipsActivity.class));
-        } else if (id == R.id.nav_about) {
+        } else if (id == R.id.nav_rate) {
+        Intent intent = new Intent(HomeProviderActivity.this, RateAppActivity.class);
+            intent.putExtra("Provider", provider);
+            intent.putExtra("Requests" , requestList);
+
+            startActivity(intent);
+
+        }else if (id == R.id.nav_about) {
             startActivity(new Intent(HomeProviderActivity.this, AboutActivity.class));
         }
 

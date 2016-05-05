@@ -10,6 +10,9 @@ import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,11 +21,30 @@ import java.util.List;
 
 public class ShareActivity extends AppCompatActivity {
 
-   //    private Context context;
-    // private static Fb_Twitter instance;
+    private Context context;
+    private static Fb_Twitter instance;
 
 
-/*
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_share);
+
+
+        ImageButton twitter = (ImageButton) findViewById(R.id.btnTwitter);
+        twitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fb_Twitter fb = new Fb_Twitter();
+
+            }
+        });
+
+
+    }
+
+
     public class Fb_Twitter {
 
 
@@ -136,47 +158,6 @@ public class ShareActivity extends AppCompatActivity {
                 showMessage("App Not Installed");
         }
     }
-    if(!targetShareIntents.isEmpty()){
-        System.out.println("Have Intent");
-        Intent chooserIntent=Intent.createChooser(targetShareIntents.remove(0), "Choose app to share");
-        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetShareIntents.toArray(new Parcelable[]{}));
-        context.startActivity(chooserIntent);
-    }else{
-        System.out.println("Do not Have Intent");
-    }
-}
-}
-        else
-        showMessage("App Not Installed");
-        }
-        }
-        - See more at: http://www.theappguruz.com/blog/share-image-and-text-on-twitter-in-android-using-native-code#sthash.jadB8TEm.dpuf
-
-
-        }
-
-        }
-    }
-
-
-
-*/
-
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_share);
-
-
-
-
-}
-
-
-
-
 
 
     }

@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ksu.mydelivery.LoginActivity"
     android:weightSum="1"
-    android:background="@color/gray"
+    android:background="@drawable/mydeliverycolorbackground"
 
     >
 
@@ -21,6 +21,8 @@
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
         android:id="@+id/txtContactInfo"
         android:layout_centerHorizontal="true"
         android:hint="Phone Number"
@@ -35,6 +37,8 @@
             android:imeOptions="actionUnspecified"
             android:inputType="textPassword"
             android:maxLines="1"
+            android:textColor="@color/lightBlue"
+            android:textColorHint="@color/lightBlue"
             android:singleLine="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="false"
@@ -49,22 +53,37 @@
             android:text="Login"
             android:textStyle="bold"
             android:layout_alignParentStart="true"
+            android:textColor="@color/lightBlue"
             android:layout_below="@+id/txtPass"
             android:layout_alignParentLeft="false"
-            android:layout_marginTop="20dp"
-            />
+            android:layout_marginTop="20dp" />
+
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/lblSignup"
-            android:text="if you are not a member yet, sign up now"
-            android:textStyle="bold"
-            android:textSize="17dp"
-            android:textColor="#1b5de1"
-            android:clickable="true"
-            android:layout_below="@+id/btnLogin"
-            android:layout_centerHorizontal="true" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblForgetPass"
+        android:text="Forget password"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:textColor="#1b5de1"
+        android:clickable="true"
+        android:layout_below="@+id/btnLogin"
+
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblSignup"
+        android:text="if you are not a member yet, sign up now"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:textColor="#1b5de1"
+        android:clickable="true"
+        android:layout_below="@+id/lblForgetPass"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true" />
 
 
 

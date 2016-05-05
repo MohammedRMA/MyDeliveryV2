@@ -8,14 +8,17 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ksu.mydelivery.AboutActivity"
-    android:background="@color/gray"
+    android:background="@drawable/mydeliverybackground11"
     >
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:text="New Text"
+        android:text="My Delivery
+
+        is an application that .."
         android:id="@+id/txtAbout"
+        android:textColor="@color/lightBlue"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
