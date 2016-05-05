@@ -153,6 +153,11 @@ public class HomeActivity extends AppCompatActivity
 
             getOffers.execute("http://10.0.2.2/user/myRequest.php");
 
+        } else if (id == R.id.nav_logOut) {
+
+            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+            finish();
+
         } else if (id == R.id.nav_share) {
             startActivity(new Intent(HomeActivity.this, ShareActivity.class));
         } else if (id == R.id.nav_contact) {

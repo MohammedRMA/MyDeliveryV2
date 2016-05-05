@@ -56,187 +56,164 @@ public class LoginActivity extends AppCompatActivity {
     public void Login() {
 
         Button login = (Button) findViewById(R.id.btnLogin);
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-/*
-                HashMap postData = new HashMap();
+        if (login != null) {
+            login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    isUser = true ;
+
+                    phone = ((EditText) findViewById(R.id.txtContactInfo)).getText().toString();
+                    pass = ((EditText) findViewById(R.id.txtPass)).getText().toString();
 
 
+                    if (phone.equals("") || pass.equals("")) {
 
-                postData.put("txtPriceLimit", 100);
-
-
-
-
-                PostResponseAsyncTask task1 = new PostResponseAsyncTask(LoginActivity.this, postData, new AsyncResponse() {
-                    @Override
-                    public void processFinish(String s) {
-                        if (s.contains("success")) {
-                            Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_LONG).show();
-                            finish();
-
+                        if (phone.equals("")) {
+                            (findViewById(R.id.txtContactInfo)).requestFocus();
+                            ((EditText) (findViewById(R.id.txtContactInfo))).setError("FIELD CANNOT BE EMPTY");
                         }
-                        else {
-                            Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_LONG).show();
+
+                        if (pass.equals("")) {
+                            (findViewById(R.id.txtPass)).requestFocus();
+                            ((EditText) (findViewById(R.id.txtPass))).setError("FIELD CANNOT BE EMPTY");
                         }
-                    }
-                });
-
-                task1.execute("http://10.0.2.2/provider/addOffer.php");
-
-                */
-
-                isUser = true ;
-
-                phone = ((EditText) findViewById(R.id.txtContactInfo)).getText().toString();
-                pass = ((EditText) findViewById(R.id.txtPass)).getText().toString();
+                    } else {
 
 
-                if (phone.equals("") || pass.equals("")) {
+                        HashMap postUserData = new HashMap();
 
-                    if (phone.equals("")) {
-                        (findViewById(R.id.txtContactInfo)).requestFocus();
-                        ((EditText) (findViewById(R.id.txtContactInfo))).setError("FIELD CANNOT BE EMPTY");
-                    }
+                        postUserData.put("txtPhone", phone);
+                        postUserData.put("txtPassword", pass);
 
-                    if (pass.equals("")) {
-                        (findViewById(R.id.txtPass)).requestFocus();
-                        ((EditText) (findViewById(R.id.txtPass))).setError("FIELD CANNOT BE EMPTY");
-                    }
-                } else {
+                        PostResponseAsyncTask loginUser = new PostResponseAsyncTask(LoginActivity.this, postUserData, new AsyncResponse() {
+                            @Override
+                            public void processFinish(String s) {
+                                if (s.contains("success")) {
+
+                                    s = s.replace("success ", "");
+
+                                    Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_LONG).show();
+                                 //   user = new ArrayList<String>();
+                                    try {
+                                        JSONObject json = new JSONObject(s);
+
+                                         user = new RegularUser(json.getString("password"), json.getString("email"), json.getString("first_name"), json.getString("last_name")
+                                                , json.getString("phone_number"), json.getString("birth_date"), json.getString("address"), json.getString("nationality"));
+                                        user.setID(Integer.parseInt(json.getString("userID")));
+
+                                    } catch (org.json.JSONException e) {
+                                        Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                                    }
 
 
-                    HashMap postUserData = new HashMap();
+                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                    intent.putExtra("RegularUser", user);
 
-                    postUserData.put("txtPhone", phone);
-                    postUserData.put("txtPassword", pass);
+                                    startActivity(intent);
 
-                    PostResponseAsyncTask loginUser = new PostResponseAsyncTask(LoginActivity.this, postUserData, new AsyncResponse() {
-                        @Override
-                        public void processFinish(String s) {
-                            if (s.contains("success")) {
+                                    finish();
 
-                                s = s.replace("success ", "");
+                                } else { // Info doesn't exist on user table we should search for provider table
 
-                                Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_LONG).show();
-                             //   user = new ArrayList<String>();
-                                try {
-                                    JSONObject json = new JSONObject(s);
+                                        HashMap postProviderData = new HashMap();
+                                        postProviderData.put("txtPhone", phone);
+                                        postProviderData.put("txtPassword", pass);
 
-                                     user = new RegularUser(json.getString("password"), json.getString("email"), json.getString("first_name"), json.getString("last_name")
-                                            , json.getString("phone_number"), json.getString("birth_date"), json.getString("address"), json.getString("nationality"));
-                                    user.setID(Integer.parseInt(json.getString("userID")));
+                                        PostResponseAsyncTask loginProvider = new PostResponseAsyncTask(LoginActivity.this, postProviderData, new AsyncResponse() {
+                                            @Override
+                                            public void processFinish(String s) {
+                                                if (s.contains("success")) {
 
-                                } catch (org.json.JSONException e) {
-                                    Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-                                }
-                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                intent.putExtra("RegularUser", user);
+                                                    s = s.replace("success ", "");
 
-                                startActivity(intent);
+                                                    Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_LONG).show();
+                                                    //   user = new ArrayList<String>();
+                                                    try {
+                                                        JSONObject json = new JSONObject(s);
 
-                                finish();
+                                                        provider = new Provider(json.getString("password"), json.getString("email"), json.getString("first_name"), json.getString("last_name")
+                                                                , json.getString("phone_number"), json.getString("birth_date"), json.getLong("nationalID"));
+                                                        provider.setID(Integer.parseInt(json.getString("providerID")));
 
-                            } else { // Info doesn't exist on user table we should search for provider table
-
-                                    HashMap postProviderData = new HashMap();
-                                    postProviderData.put("txtPhone", phone);
-                                    postProviderData.put("txtPassword", pass);
-
-                                    PostResponseAsyncTask loginProvider = new PostResponseAsyncTask(LoginActivity.this, postProviderData, new AsyncResponse() {
-                                        @Override
-                                        public void processFinish(String s) {
-                                            if (s.contains("success")) {
-
-                                                s = s.replace("success ", "");
-
-                                                Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_LONG).show();
-                                                //   user = new ArrayList<String>();
-                                                try {
-                                                    JSONObject json = new JSONObject(s);
-
-                                                    provider = new Provider(json.getString("password"), json.getString("email"), json.getString("first_name"), json.getString("last_name")
-                                                            , json.getString("phone_number"), json.getString("birth_date"), json.getLong("nationalID"));
-                                                    provider.setID(Integer.parseInt(json.getString("providerID")));
-
-                                                } catch (org.json.JSONException e) {
-                                                    Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-                                                }
-                                                Intent intent = new Intent(LoginActivity.this, HomeProviderActivity.class);
-                                                intent.putExtra("Provider", provider);
-
-                                                startActivity(intent);
-                                                finish();
-
-                                            }else { // Info doesn't exist on user table we should search for provider table
-
-                                                HashMap postAdminData = new HashMap();
-                                                postAdminData.put("txtPhone", phone);
-                                                postAdminData.put("txtPassword", pass);
-
-                                                PostResponseAsyncTask loginAdmin = new PostResponseAsyncTask(LoginActivity.this, postAdminData, new AsyncResponse() {
-                                                    @Override
-                                                    public void processFinish(String s) {
-                                                        if (s.contains("success")) {
-
-                                                            s = s.replace("success ", "");
-
-                                                            Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_LONG).show();
-                                                            //   user = new ArrayList<String>();
-                                                            try {
-                                                                JSONObject json = new JSONObject(s);
-
-                                                                admin = new Admin(json.getString("password"), json.getString("email"), json.getString("first_name"), json.getString("last_name")
-                                                                        , json.getString("phone_number"), json.getString("birth_date"));
-                                                                admin.setID(Integer.parseInt(json.getString("adminID")));
-
-                                                            } catch (org.json.JSONException e) {
-                                                                Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-                                                            }
-                                                            Intent intent = new Intent(LoginActivity.this, HomeAdminActivity.class);
-                                                            intent.putExtra("Admin", admin);
-
-                                                            startActivity(intent);
-                                                            finish();
-
-                                                        } else {
-                                                            Toast.makeText(LoginActivity.this, "Wrong phone number or password", Toast.LENGTH_LONG).show();
-                                                            (findViewById(R.id.txtContactInfo)).requestFocus();
-                                                            ((EditText) (findViewById(R.id.txtContactInfo))).setError("");
-                                                            (findViewById(R.id.txtPass)).requestFocus();
-                                                            ((EditText) (findViewById(R.id.txtPass))).setError("");
-
-                                                        }
+                                                    } catch (org.json.JSONException e) {
+                                                        Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                                                     }
-                                                });
+                                                    Intent intent = new Intent(LoginActivity.this, HomeProviderActivity.class);
+                                                    intent.putExtra("Provider", provider);
 
-                                                loginAdmin.execute("http://10.0.2.2/admin/login.php");
+                                                    startActivity(intent);
+                                                    finish();
+
+                                                }else { // Info doesn't exist on user table we should search for provider table
+
+                                                    HashMap postAdminData = new HashMap();
+                                                    postAdminData.put("txtPhone", phone);
+                                                    postAdminData.put("txtPassword", pass);
+
+                                                    PostResponseAsyncTask loginAdmin = new PostResponseAsyncTask(LoginActivity.this, postAdminData, new AsyncResponse() {
+                                                        @Override
+                                                        public void processFinish(String s) {
+                                                            if (s.contains("success")) {
+
+                                                                s = s.replace("success ", "");
+
+                                                                Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_LONG).show();
+                                                                //   user = new ArrayList<String>();
+                                                                try {
+                                                                    JSONObject json = new JSONObject(s);
+
+                                                                    admin = new Admin(json.getString("password"), json.getString("email"), json.getString("first_name"), json.getString("last_name")
+                                                                            , json.getString("phone_number"), json.getString("birth_date"));
+                                                                    admin.setID(Integer.parseInt(json.getString("adminID")));
+
+                                                                } catch (org.json.JSONException e) {
+                                                                    Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                                                                }
+                                                                Intent intent = new Intent(LoginActivity.this, HomeAdminActivity.class);
+                                                                intent.putExtra("Admin", admin);
+
+                                                                startActivity(intent);
+                                                                finish();
+
+                                                            } else {
+                                                                Toast.makeText(LoginActivity.this, "Wrong phone number or password", Toast.LENGTH_LONG).show();
+                                                                (findViewById(R.id.txtContactInfo)).requestFocus();
+                                                                ((EditText) (findViewById(R.id.txtContactInfo))).setError("");
+                                                                (findViewById(R.id.txtPass)).requestFocus();
+                                                                ((EditText) (findViewById(R.id.txtPass))).setError("");
+
+                                                            }
+                                                        }
+                                                    });
+
+                                                    loginAdmin.execute("http://10.0.2.2/admin/login.php");
+
+                                                }
 
                                             }
+                                        });
 
-                                        }
-                                    });
-
-                                    loginProvider.execute("http://10.0.2.2/provider/login.php");
+                                        loginProvider.execute("http://10.0.2.2/provider/login.php");
 
 
 
+                                }
                             }
-                        }
-                    });
+                        });
 
-                    loginUser.execute("http://10.0.2.2/user/login.php");
+                        loginUser.execute("http://10.0.2.2/user/login.php");
 
-                    //BindDictionary<String> dict = new BindDictionary<String>();
+                        //BindDictionary<String> dict = new BindDictionary<String>();
+
+
+                    }
+
 
 
                 }
-
-
-
-            }
-        });
+            });
+        }
     }
 
 }

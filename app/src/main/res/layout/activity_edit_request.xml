@@ -60,7 +60,7 @@
         android:inputType="numberDecimal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/lblRegion"
+        android:id="@+id/txtPrice"
         android:layout_below="@+id/txtDestAddress"
         android:layout_centerHorizontal="true"
         android:hint="Price" />
@@ -69,7 +69,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtDueTime"
-        android:layout_below="@+id/lblRegion"
+        android:layout_below="@+id/txtPrice"
         android:layout_centerHorizontal="true"
         android:hint="Due Time" />
 

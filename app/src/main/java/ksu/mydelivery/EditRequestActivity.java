@@ -1,5 +1,6 @@
 package ksu.mydelivery;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,11 +13,13 @@ import android.widget.Toast;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EditRequestActivity extends AppCompatActivity {
 
     private Request request;
+    private ArrayList<Request> requestList;
     private  String title, description , type , src , dest, price , dueTime ,contactInfo , requestID;
 
     @Override
@@ -25,7 +28,8 @@ public class EditRequestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_request);
 
 
-      /*  request = (Request) getIntent().getSerializableExtra("Request");
+        request = (Request) getIntent().getSerializableExtra("Request");
+        requestList = (ArrayList<Request>) getIntent().getSerializableExtra("Requests");
         ((EditText)findViewById(R.id.txtTitle)).setText(request.getTitle());
         ((EditText)findViewById(R.id.txtDescription)).setText(request.getDescription());
         switch (request.getType().toString()) {
@@ -43,7 +47,7 @@ public class EditRequestActivity extends AppCompatActivity {
         ((EditText)findViewById(R.id.txtPrice)).setText(String.valueOf(request.getPrice()));
         ((EditText)findViewById(R.id.txtDueTime)).setText(request.getDueTime());
         ((EditText)findViewById(R.id.txtContactInfo)).setText(request.getContactInfo());
-        ((TextView)findViewById(R.id.lblSubmitTime)).setText("Submitted At: "+request.getSubmitTime());*/
+        ((TextView)findViewById(R.id.lblSubmitTime)).setText("Submitted At: "+request.getSubmitTime());
 
         ImageButton btnUpdate = (ImageButton) findViewById(R.id.imgbtnSave) ;
         btnUpdate.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +77,7 @@ public class EditRequestActivity extends AppCompatActivity {
         price = ((EditText) findViewById(R.id.txtPrice)).getText().toString();
         dueTime = ((EditText) findViewById(R.id.txtDueTime)).getText().toString();
         contactInfo = ((EditText) findViewById(R.id.txtContactInfo)).getText().toString();
-//        requestID = String.valueOf(request.getId());
+        requestID = String.valueOf(request.getId());
 
         if (title.equals("") || type.equals("--Type--") || src.equals("") || dest.equals("") || price.equals("") || dueTime.equals("") || contactInfo.equals("") ) {
             (findViewById(R.id.txtTitle)).requestFocus();
@@ -85,7 +89,7 @@ public class EditRequestActivity extends AppCompatActivity {
 
             HashMap postData = new HashMap();
 
-            postData.put("txtRequestID", "1");
+            postData.put("txtRequestID", requestID);
             postData.put("txtTitle", title);
             postData.put("txtDescription", description);
             postData.put("txtType", type);
@@ -104,6 +108,24 @@ public class EditRequestActivity extends AppCompatActivity {
                     Toast.makeText(EditRequestActivity.this,s, Toast.LENGTH_LONG).show();
                     if (s.contains("success")) {
                         Toast.makeText(EditRequestActivity.this,"Request Updated Successfully", Toast.LENGTH_LONG).show();
+
+                        for (int i = 0 ; i < requestList.size() ; i++) {
+                            if (requestList.get(i).getId() == request.getId() ) {
+                                requestList.get(i).setTitle(title);
+                                requestList.get(i).setDescription(description);
+                                requestList.get(i).setType(type);
+                                requestList.get(i).setSrcAddress(src);
+                                requestList.get(i).setDestAddress(dest);
+                                requestList.get(i).setPrice(Double.parseDouble(price));
+                                requestList.get(i).setDueTime(dueTime);
+                                requestList.get(i).setContactInfo(contactInfo);
+                                break;
+                            }
+                        }
+
+                        Intent intent = new Intent(EditRequestActivity.this , MyRequestActivity.class);
+                        intent.putExtra("Requests",requestList);
+                        startActivity(intent);
                         finish();
                     }
                     else {
@@ -119,12 +141,12 @@ public class EditRequestActivity extends AppCompatActivity {
 
     public void DeleteRequest() {
 
-       // requestID = String.valueOf(request.getId());
+        requestID = String.valueOf(request.getId());
 
 
         HashMap postData = new HashMap();
 
-        postData.put("txtRequestID", "1");
+        postData.put("txtRequestID",requestID );
 
 
         final PostResponseAsyncTask task1 = new PostResponseAsyncTask(EditRequestActivity.this, postData, new AsyncResponse() {
@@ -133,7 +155,19 @@ public class EditRequestActivity extends AppCompatActivity {
                 Toast.makeText(EditRequestActivity.this,s, Toast.LENGTH_LONG).show();
                 if (s.contains("success")) {
                     Toast.makeText(EditRequestActivity.this,"Request Removed Successfully", Toast.LENGTH_LONG).show();
+
+                    for (int i = 0 ; i < requestList.size() ; i++) {
+                        if (requestList.get(i).getId() == request.getId() ) {
+                            requestList.remove(i);
+                            break;
+                        }
+                    }
+
+                    Intent intent = new Intent(EditRequestActivity.this , MyRequestActivity.class);
+                    intent.putExtra("Requests",requestList);
+                    startActivity(intent);
                     finish();
+
                 }
                 else {
                     Toast.makeText(EditRequestActivity.this,"Failed", Toast.LENGTH_LONG).show();

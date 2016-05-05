@@ -1,6 +1,7 @@
 package ksu.mydelivery;
 
 import android.app.TabActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -43,6 +44,7 @@ public class MyRequestActivity extends TabActivity   implements TabHost.OnTabCha
 
         requestList = (ArrayList<Request>) getIntent().getSerializableExtra("Requests");
 
+
         currentRequest = new ArrayList<>();
         previousRequest = new ArrayList<>();
 
@@ -76,7 +78,11 @@ public class MyRequestActivity extends TabActivity   implements TabHost.OnTabCha
 
                 Object o = lvCurrentRequest.getItemAtPosition(position);
                 Request request = (Request) o;
-                Toast.makeText(MyRequestActivity.this, "You have chosen (Current): " + " " + request.getTitle(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MyRequestActivity.this , EditRequestActivity.class);
+                intent.putExtra("Requests" , requestList);
+                intent.putExtra("Request" , request);
+                startActivity(intent);
+                finish();
 
             }
         });

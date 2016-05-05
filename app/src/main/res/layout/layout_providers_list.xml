@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="120dp"
+        android:id="@+id/imgPic"
+        android:src="@drawable/profile_pic"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblName"
+        android:textSize="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/textView1"
+        android:layout_below="@+id/imgPic"
+        android:layout_marginStart="15dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1"
+        android:paddingStart="20dp"
+        android:textSize="20dp"
+        android:text="Name:"
+        android:layout_below="@+id/imgPic"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblDeliveredRequests"
+        android:textSize="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/lblName"
+        android:layout_toEndOf="@+id/textView2"
+        android:layout_marginStart="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:paddingStart="20dp"
+        android:textSize="20dp"
+        android:text="# Delivered Requests:"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/textView1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblRate"
+        android:textSize="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/lblDeliveredRequests"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_marginStart="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:paddingStart="20dp"
+        android:textSize="20dp"
+        android:text="Rate:"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/textView2"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:paddingStart="20dp"
+        android:textSize="10dp"
+        android:layout_below="@+id/textView3"/>
+
+
+</RelativeLayout>
