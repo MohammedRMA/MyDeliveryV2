@@ -1,40 +1,30 @@
 package ksu.mydelivery;
 
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.amigold.fundapter.BindDictionary;
-import com.kosalgeek.android.json.JsonConverter;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
-    //ProgressDialog pd;
 
-    final String LOG = "LoginActivity";
+
     private RegularUser user;
     private Provider provider;
     private String phone, pass;
-    private boolean isUser;
     private Admin admin;
-
     private ArrayList<String> jsonList;
-    private ArrayList<Request> requestList;
+    private ArrayList<Request> requestList , assignedRequestList;
     private  Request request;
 
 
@@ -45,6 +35,47 @@ public class LoginActivity extends AppCompatActivity {
 
         requestList = new ArrayList<>();
 
+
+
+
+        PostResponseAsyncTask getRequests = new PostResponseAsyncTask(LoginActivity.this, new AsyncResponse() {
+            @Override
+            public void processFinish(String s) {
+
+                jsonList = new ArrayList<>();
+                requestList = new ArrayList<>();
+
+                try {
+                    JSONArray jsonArray = new JSONArray(s);
+                    JSONObject jsonObject;
+
+                    if (jsonArray != null) {
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            jsonList.add(jsonArray.get(i).toString());
+                        }
+                    }
+
+                    for (int i = 0; i < jsonList.size(); i++) {
+                        jsonObject = new JSONObject(jsonList.get(i));
+                        request = new Request(jsonObject.getInt("requestID"), jsonObject.getString("title"), jsonObject.getString("description"), jsonObject.getString("type")
+                                , jsonObject.getString("source_address"), jsonObject.getString("destination_address"), jsonObject.getInt("price")
+                                , jsonObject.getString("due_time"), jsonObject.getString("contact_info"));
+                        requestList.add(request);
+
+                    }
+
+
+                } catch (org.json.JSONException e) {
+                    Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        getRequests.execute("http://10.0.2.2/user/requests.php");
+
+
+
+
         Signup();
         Login();
         forgetPasswors();
@@ -53,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void forgetPasswors() {
-        TextView Tsign = (TextView) findViewById(R.id.lblForgetPass);
+        TextView Tsign = (TextView) findViewById(R.id.lblForgotPass);
         Tsign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +113,6 @@ public class LoginActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
 
-                    isUser = true;
 
                     phone = ((EditText) findViewById(R.id.txtContactInfo)).getText().toString();
                     pass = ((EditText) findViewById(R.id.txtPass)).getText().toString();
@@ -102,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
 
 
+                        phone = phone.replaceFirst("0" , "");
                         HashMap postUserData = new HashMap();
 
                         postUserData.put("txtPhone", phone);
@@ -115,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
                                     s = s.replace("success ", "");
 
                                     Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_LONG).show();
-                                    //   user = new ArrayList<String>();
+
                                     try {
                                         JSONObject json = new JSONObject(s);
 
@@ -123,65 +154,22 @@ public class LoginActivity extends AppCompatActivity {
                                                 , json.getString("phone_number"), json.getString("birth_date"), json.getString("address"), json.getString("nationality")  , json.getString("is_suspended") , json.getDouble("rate_app") );
                                         user.setID(Integer.parseInt(json.getString("userID")));
 
-                                        /*
-                                         user = new RegularUser(json.getString("password"), json.getString("email"), json.getString("first_name"), json.getString("last_name")
-                                                , json.getString("phone_number"), json.getString("birth_date"), json.getString("address"), json.getString("nationality"), json.getString("rate_app"));
-                                        user.setID(Integer.parseInt(json.getString("userID")));
-                                         */
-
                                     } catch (org.json.JSONException e) {
                                         Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                                     }
 
 
+                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                    intent.putExtra("RegularUser", user);
+                                    intent.putExtra("Requests", requestList);
 
-                                        PostResponseAsyncTask getRequests = new PostResponseAsyncTask(LoginActivity.this, new AsyncResponse() {
-                                            @Override
-                                            public void processFinish(String s) {
-
-                                                jsonList = new ArrayList<>();
-                                                requestList = new ArrayList<>();
-
-                                                try {
-                                                    JSONArray jsonArray = new JSONArray(s);
-                                                    JSONObject jsonObject;
-
-                                                    if (jsonArray != null) {
-                                                        for (int i = 0; i < jsonArray.length(); i++) {
-                                                            jsonList.add(jsonArray.get(i).toString());
-                                                        }
-                                                    }
-
-                                                    for (int i = 0; i < jsonList.size(); i++) {
-                                                        jsonObject = new JSONObject(jsonList.get(i));
-                                                        request = new Request(jsonObject.getInt("requestID"), jsonObject.getString("title"), jsonObject.getString("description"), jsonObject.getString("type")
-                                                                , jsonObject.getString("source_address"), jsonObject.getString("destination_address"), jsonObject.getInt("price")
-                                                                , jsonObject.getString("due_time"), jsonObject.getString("contact_info"));
-                                                        requestList.add(request);
-
-                                                    }
-
-                                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                                    intent.putExtra("RegularUser", user);
-                                                    intent.putExtra("Requests", requestList);
-
-                                                    startActivity(intent);
-                                                    finish();
-
-                                                } catch (org.json.JSONException e) {
-                                                    Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-                                                }
+                                    startActivity(intent);
+                                    finish();
 
 
-
-                                            }
-                                        });
-
-                                    getRequests.execute("http://10.0.2.2/user/requests.php");
+                                } else {
 
 
-
-                                } else { // Info doesn't exist on user table we should search for provider table
 
                                     HashMap postProviderData = new HashMap();
                                     postProviderData.put("txtPhone", phone);
@@ -207,18 +195,19 @@ public class LoginActivity extends AppCompatActivity {
                                                     Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                                                 }
 
+                                                HashMap putData = new HashMap();
+                                                putData.put("txtProviderID", String.valueOf(provider.getID()) );
 
-
-                                                PostResponseAsyncTask getRequests = new PostResponseAsyncTask(LoginActivity.this, new AsyncResponse() {
+                                                PostResponseAsyncTask getRequests = new PostResponseAsyncTask(LoginActivity.this, putData , new AsyncResponse() {
                                                     @Override
                                                     public void processFinish(String s) {
 
                                                         jsonList = new ArrayList<>();
-                                                        requestList = new ArrayList<>();
+                                                        assignedRequestList = new ArrayList<>();
 
                                                         try {
                                                             JSONArray jsonArray = new JSONArray(s);
-                                                            JSONObject jsonObject;
+                                                            JSONObject jsonObject ;
 
                                                             if (jsonArray != null) {
                                                                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -229,34 +218,34 @@ public class LoginActivity extends AppCompatActivity {
                                                             for (int i = 0; i < jsonList.size(); i++) {
                                                                 jsonObject = new JSONObject(jsonList.get(i));
                                                                 request = new Request(jsonObject.getInt("requestID"), jsonObject.getString("title"), jsonObject.getString("description"), jsonObject.getString("type")
-                                                                        , jsonObject.getString("source_address"), jsonObject.getString("destination_address"), jsonObject.getInt("price")
-                                                                        , jsonObject.getString("due_time"), jsonObject.getString("contact_info"));
-                                                                requestList.add(request);
-
+                                                                        , jsonObject.getString("source_address"), jsonObject.getString("destination_address"), jsonObject.getDouble("price")
+                                                                        , jsonObject.getString("due_time"), jsonObject.getString("submit_time"), jsonObject.getString("contact_info"), jsonObject.getString("request_status"), jsonObject.getInt("userID_added"));
+                                                                assignedRequestList.add(request);
                                                             }
 
                                                             Intent intent = new Intent(LoginActivity.this, HomeProviderActivity.class);
                                                             intent.putExtra("Provider", provider);
                                                             intent.putExtra("Requests", requestList);
-
+                                                            intent.putExtra("AssignedRequests", assignedRequestList);
                                                             startActivity(intent);
                                                             finish();
+
 
                                                         } catch (org.json.JSONException e) {
                                                             Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                                                         }
 
 
-
                                                     }
                                                 });
 
-                                                getRequests.execute("http://10.0.2.2/user/requests.php");
+                                                getRequests.execute("http://10.0.2.2/transaction/assignedRequest.php");
 
 
 
+                                            } else {
 
-                                            } else { // Info doesn't exist on user table we should search for provider table
+
 
                                                 HashMap postAdminData = new HashMap();
                                                 postAdminData.put("txtPhone", phone);
@@ -270,7 +259,7 @@ public class LoginActivity extends AppCompatActivity {
                                                             s = s.replace("success ", "");
 
                                                             Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_LONG).show();
-                                                            //   user = new ArrayList<String>();
+
                                                             try {
                                                                 JSONObject json = new JSONObject(s);
 
@@ -282,49 +271,13 @@ public class LoginActivity extends AppCompatActivity {
                                                                 Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                                                             }
 
-                                                            PostResponseAsyncTask getRequests = new PostResponseAsyncTask(LoginActivity.this, new AsyncResponse() {
-                                                                @Override
-                                                                public void processFinish(String s) {
 
-                                                                    jsonList = new ArrayList<>();
-                                                                    requestList = new ArrayList<>();
+                                                            Intent intent = new Intent(LoginActivity.this, HomeAdminActivity.class);
+                                                            intent.putExtra("Admin", admin);
+                                                            intent.putExtra("Requests", requestList);
 
-                                                                    try {
-                                                                        JSONArray jsonArray = new JSONArray(s);
-                                                                        JSONObject jsonObject;
-
-                                                                        if (jsonArray != null) {
-                                                                            for (int i = 0; i < jsonArray.length(); i++) {
-                                                                                jsonList.add(jsonArray.get(i).toString());
-                                                                            }
-                                                                        }
-
-                                                                        for (int i = 0; i < jsonList.size(); i++) {
-                                                                            jsonObject = new JSONObject(jsonList.get(i));
-                                                                            request = new Request(jsonObject.getInt("requestID"), jsonObject.getString("title"), jsonObject.getString("description"), jsonObject.getString("type")
-                                                                                    , jsonObject.getString("source_address"), jsonObject.getString("destination_address"), jsonObject.getInt("price")
-                                                                                    , jsonObject.getString("due_time"), jsonObject.getString("contact_info"));
-                                                                            requestList.add(request);
-
-                                                                        }
-
-                                                                        Intent intent = new Intent(LoginActivity.this, HomeAdminActivity.class);
-                                                                        intent.putExtra("Admin", admin);
-                                                                        intent.putExtra("Requests", requestList);
-
-                                                                        startActivity(intent);
-                                                                        finish();
-
-                                                                    } catch (org.json.JSONException e) {
-                                                                        Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-                                                                    }
-
-
-
-                                                                }
-                                                            });
-
-                                                            getRequests.execute("http://10.0.2.2/user/requests.php");
+                                                            startActivity(intent);
+                                                            finish();
 
                                                         }
 
@@ -354,8 +307,6 @@ public class LoginActivity extends AppCompatActivity {
                         });
 
                         loginUser.execute("http://10.0.2.2/user/login.php");
-
-                        //BindDictionary<String> dict = new BindDictionary<String>();
 
 
                     }

@@ -82,13 +82,27 @@
     <EditText
         android:textColor="@color/lightBlue"
         android:textColorHint="@color/lightBlue"
+        android:inputType="date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/txtDueDate"
+        android:layout_below="@+id/txtPrice"
+        android:layout_centerHorizontal="true"
+        android:hint="Due date" />
+
+    <EditText
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
+        android:inputType="time"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:id="@+id/txtDueTime"
-        android:layout_below="@+id/txtPrice"
+        android:layout_below="@+id/txtDueDate"
         android:layout_centerHorizontal="true"
-        android:hint="Due time" />
+        android:hint="Due time"/>
+
 
     <EditText
         android:textColor="@color/lightBlue"
@@ -102,6 +116,7 @@
         android:layout_centerHorizontal="true"
         android:hint="Contact information" />
 
+
     <ImageButton
         android:layout_width="65dp"
         android:layout_height="65dp"
@@ -112,5 +127,6 @@
         android:scaleType="fitCenter"
         android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/txtContactInfo" />
+
 
 </RelativeLayout>

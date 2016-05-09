@@ -7,6 +7,206 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ksu.mydelivery.AssignedRequestActivity">
+    tools:context="ksu.mydelivery.AssignedRequestActivity"
+    android:background="@drawable/mydeliverybackground112">
+
+    <TextView
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/txtTitle"
+        android:text="Title:"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblTitle"
+        android:textSize="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/txtTitle"
+        android:layout_marginStart="100dp"/>
+
+    <TextView
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtDescription"
+        android:layout_below="@+id/txtTitle"
+        android:textSize="20dp"
+        android:text="Description:"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblDescr"
+        android:textSize="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/lblTitle"
+        android:layout_toEndOf="@+id/txtDescr"
+        android:layout_alignStart="@+id/lblTitle"/>
+
+    <TextView
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtType"
+        android:layout_below="@+id/txtDescription"
+        android:textSize="20dp"
+        android:text="Type:"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblType"
+        android:textSize="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/lblDescr"
+        android:layout_toEndOf="@+id/txtType"
+        android:layout_alignStart="@+id/lblDescr"/>
+
+
+    <TextView
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtSrcAddress"
+        android:layout_below="@+id/txtType"
+        android:textSize="20dp"
+        android:text="Src. Address:"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblSrc"
+        android:textSize="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/lblType"
+        android:layout_toEndOf="@+id/txtSource"
+        android:layout_alignStart="@+id/lblType"/>
+
+    <TextView
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtDestAddress"
+        android:layout_below="@+id/txtSrcAddress"
+        android:textSize="20dp"
+        android:text="Dest. Address:"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblDest"
+        android:textSize="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/lblSrc"
+        android:layout_toEndOf="@+id/txtDest"
+        android:layout_alignStart="@+id/lblSrc"/>
+
+    <TextView
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtPrice"
+        android:layout_below="@+id/txtDestAddress"
+        android:textSize="20dp"
+        android:text="Price:"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblPrice"
+        android:textSize="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/lblDest"
+        android:layout_toEndOf="@+id/txtPrice"
+        android:layout_alignStart="@+id/lblDest"/>
+
+    <TextView
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtDueTime"
+        android:layout_below="@+id/txtPrice"
+        android:textSize="20dp"
+        android:text="Due Time:"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblDueTime"
+        android:textSize="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/lblPrice"
+        android:layout_toEndOf="@+id/txtDueDate"
+        android:layout_alignStart="@+id/lblPrice"/>
+
+    <TextView
+        android:textColor="@color/lightBlue"
+        android:textColorHint="@color/lightBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtContactInfo"
+        android:layout_below="@+id/txtDueTime"
+        android:textSize="20dp"
+        android:text="Contact Info:"
+        android:layout_marginTop="35dp"
+        android:layout_marginStart="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblContactInfo"
+        android:textSize="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/lblDueTime"
+        android:layout_toEndOf="@+id/txtContactInfo"
+        android:layout_alignStart="@+id/lblDueTime"/>
+
+    <TextView
+        android:textColor="@color/lightBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submitted At:"
+        android:id="@+id/lblSubmitTime"
+        android:layout_below="@+id/txtContactInfo"
+        android:layout_marginTop="35dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="16dp"
+
+        />
+
+    <ImageButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/imgbtnDeliver"
+        android:scaleType="fitCenter"
+        android:background="@color/light_gray"
+        android:src="@drawable/ic_action_edit"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

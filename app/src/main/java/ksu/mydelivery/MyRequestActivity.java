@@ -27,6 +27,7 @@ public class MyRequestActivity extends TabActivity   implements TabHost.OnTabCha
     private ListView lvCurrentRequest;
     private ListView lvPreviousRequest;
     private TabHost tabHost;
+    private String type;
 
     @Override
 
@@ -43,21 +44,31 @@ public class MyRequestActivity extends TabActivity   implements TabHost.OnTabCha
         // create some dummy strings to add to the list
 
         requestList = (ArrayList<Request>) getIntent().getSerializableExtra("Requests");
-
+        type = "";
+        type = (String) getIntent().getSerializableExtra("Type");
 
         currentRequest = new ArrayList<>();
         previousRequest = new ArrayList<>();
 
-        for (int i = 0 ; i < requestList.size() ; i++) {
-            if ( requestList.get(i).getStatus().equals("new") ) {
-                currentRequest.add(requestList.get(i));
-            }
-            else {
-                previousRequest.add(requestList.get(i));
+        if (type.equalsIgnoreCase("User")) {
+            for (int i = 0; i < requestList.size(); i++) {
+                if (requestList.get(i).getStatus().equalsIgnoreCase("new")) {
+                    currentRequest.add(requestList.get(i));
+                } else {
+                    previousRequest.add(requestList.get(i));
+                }
             }
         }
 
-
+        else if (type.equalsIgnoreCase("Provider")) {
+            for (int i = 0; i < requestList.size(); i++) {
+                if (requestList.get(i).getStatus().equalsIgnoreCase("delivered")) {
+                    previousRequest.add(requestList.get(i));
+                } else {
+                    currentRequest.add(requestList.get(i));
+                }
+            }
+        }
 
         // setup list view 2
 
@@ -78,12 +89,22 @@ public class MyRequestActivity extends TabActivity   implements TabHost.OnTabCha
 
                 Object o = lvCurrentRequest.getItemAtPosition(position);
                 Request request = (Request) o;
-                Intent intent = new Intent(MyRequestActivity.this , EditRequestActivity.class);
-                intent.putExtra("Requests" , requestList);
-                intent.putExtra("Request" , request);
-                startActivity(intent);
-                finish();
-
+                if (type.equalsIgnoreCase("User")) {
+                    Intent intent = new Intent(MyRequestActivity.this, EditRequestActivity.class);
+                    intent.putExtra("Requests", requestList);
+                    intent.putExtra("Request", request);
+                    intent.putExtra("Type", type);
+                    startActivity(intent);
+                    finish();
+                }
+                else if (type.equalsIgnoreCase("Provider")) {
+                    Intent intent = new Intent(MyRequestActivity.this, AssignedRequestActivity.class);
+                    intent.putExtra("Requests", requestList);
+                    intent.putExtra("Request", request);
+                    intent.putExtra("Type", type);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 
@@ -93,8 +114,14 @@ public class MyRequestActivity extends TabActivity   implements TabHost.OnTabCha
 
                 Object o = lvPreviousRequest.getItemAtPosition(position);
                 Request request = (Request) o;
-                Toast.makeText(MyRequestActivity.this, "You have chosen (Previous): " + " " + request.getTitle(), Toast.LENGTH_LONG).show();
-
+                if (type.equalsIgnoreCase("User")) {
+                    Intent intent = new Intent(MyRequestActivity.this, EditRequestActivity.class); // Rate Activity
+                    intent.putExtra("Requests", requestList);
+                    intent.putExtra("Request", request);
+                    intent.putExtra("Type", type);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 

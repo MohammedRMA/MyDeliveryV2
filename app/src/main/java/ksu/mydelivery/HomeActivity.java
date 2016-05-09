@@ -114,7 +114,8 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
         }
     }
 
@@ -156,10 +157,10 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_myRequest) {
 
 
-            HashMap getRequests = new HashMap();
-            getRequests.put("txtUid", String.valueOf(user.getID()) );
+            HashMap putData = new HashMap();
+            putData.put("txtUid", String.valueOf(user.getID()) );
 
-            PostResponseAsyncTask getOffers = new PostResponseAsyncTask(HomeActivity.this, getRequests, new AsyncResponse() {
+            PostResponseAsyncTask getRequests = new PostResponseAsyncTask(HomeActivity.this, putData , new AsyncResponse() {
                 @Override
                 public void processFinish(String s) {
 
@@ -186,6 +187,8 @@ public class HomeActivity extends AppCompatActivity
 
                         Intent intent = new Intent(HomeActivity.this , MyRequestActivity.class);
                         intent.putExtra("Requests" , requestList);
+                        String type = "User";
+                        intent.putExtra("Type",type);
                         startActivity(intent);
 
 
@@ -196,7 +199,7 @@ public class HomeActivity extends AppCompatActivity
                 }
             });
 
-            getOffers.execute("http://10.0.2.2/user/myRequest.php");
+            getRequests.execute("http://10.0.2.2/user/myRequest.php");
 
         }else if (id == R.id.nav_logOut) {
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));

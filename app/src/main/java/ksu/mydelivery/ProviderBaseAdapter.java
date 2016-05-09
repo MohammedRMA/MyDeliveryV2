@@ -63,7 +63,7 @@ public class ProviderBaseAdapter extends BaseAdapter {
         }
 
     public void finish() {
-
+        ((AssignProviderActivity)context).finish();
     }
 
 

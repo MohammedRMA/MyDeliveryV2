@@ -128,6 +128,9 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".AssignedRequestActivity" />
+        <activity android:name=".AssignProviderActivity"
+            android:label="Assign Provider"></activity>
+
         <activity
             android:name=".MailSenderActivity"
             android:label="Forget Password" />

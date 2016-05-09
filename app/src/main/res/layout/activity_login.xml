@@ -62,8 +62,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/lblForgetPass"
-        android:text="Forget password"
+        android:id="@+id/lblForgotPass"
+        android:text="Forgot password"
         android:textStyle="bold"
         android:textSize="17dp"
         android:textColor="#1b5de1"
@@ -81,8 +81,8 @@
         android:textSize="17dp"
         android:textColor="#1b5de1"
         android:clickable="true"
-        android:layout_below="@+id/lblForgetPass"
-        android:layout_marginTop="30dp"
+        android:layout_below="@+id/lblForgotPass"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true" />
 
 

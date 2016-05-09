@@ -1,8 +1,10 @@
 package ksu.mydelivery;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,9 +37,10 @@ public class HomeProviderActivity extends AppCompatActivity
     private ArrayList<String> jsonList;
     private ArrayList<Offer> offerList;
     private Offer offer;
-
-    private ArrayList<Request> requestList;
+    private ArrayList<Request> requestList , assignedRequestList;
     private Request request;
+    private  boolean found;
+    private int i ;
 
 
 
@@ -53,8 +56,62 @@ public class HomeProviderActivity extends AppCompatActivity
 
         requestList = new ArrayList<>();
         requestList = (ArrayList<Request>) getIntent().getSerializableExtra("Requests");
+        assignedRequestList = new ArrayList<>();
+        assignedRequestList= (ArrayList<Request>) getIntent().getSerializableExtra("AssignedRequests");
+        found = false ;
+        for ( i = 0 ; i < assignedRequestList.size() ; i++) {
+
+            if (assignedRequestList.get(i).getStatus().equalsIgnoreCase("new")) {
+                AlertDialog.Builder aBuilder = new AlertDialog.Builder(HomeProviderActivity.this);
+
+                aBuilder.setMessage("You have a new request assigned for you !")
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(final DialogInterface dialog, int which) {
 
 
+                                HashMap postData = new HashMap();
+                                postData.put("txtRequestID", String.valueOf(assignedRequestList.get(i-1).getId()) );
+                                postData.put("txtTitle", assignedRequestList.get(i-1).getTitle());
+                                postData.put("txtDescription", assignedRequestList.get(i-1).getDescription());
+                                postData.put("txtType", assignedRequestList.get(i-1).getType());
+                                postData.put("txtSrcAddress", assignedRequestList.get(i-1).getSrcAddress());
+                                postData.put("txtDestAddress", assignedRequestList.get(i-1).getDestAddress());
+                                postData.put("txtPrice", String.valueOf(assignedRequestList.get(i-1).getPrice()) );
+                                postData.put("txtDueTime", assignedRequestList.get(i-1).getDueTime());
+                                postData.put("txtContactInfo", assignedRequestList.get(i-1).getContactInfo());
+                                postData.put("txtRequestStatus", "InProgress");
+
+
+                                PostResponseAsyncTask task1 = new PostResponseAsyncTask(HomeProviderActivity.this, postData, new AsyncResponse() {
+                                    @Override
+                                    public void processFinish(String s) {
+                                        if (s.contains("success")) {
+                                            Toast.makeText(HomeProviderActivity.this,"Request has been assigned successfully",Toast.LENGTH_LONG);
+                                           found = true ;
+                                            dialog.cancel();
+                                        }
+                                        else {
+                                            Toast.makeText(HomeProviderActivity.this, "Failed", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+
+                                task1.execute("http://10.0.2.2/user/updateRequest.php");
+
+                            }
+                        });
+
+                AlertDialog alert = aBuilder.create();
+                alert.setTitle("New Request");
+                alert.show();
+
+            }
+            if (found) {
+                break;
+            }
+        }
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View hView =  navigationView.getHeaderView(0);
@@ -159,7 +216,52 @@ public class HomeProviderActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_assignedRequest) {
-            startActivity(new Intent(HomeProviderActivity.this, MyRequestActivity.class));  ////////    تعديييييييييييييييل ******%%$$$$####@@@@
+
+            HashMap putData = new HashMap();
+            putData.put("txtProviderID", String.valueOf(provider.getID()) );
+
+            PostResponseAsyncTask getRequests = new PostResponseAsyncTask(HomeProviderActivity.this, putData , new AsyncResponse() {
+                @Override
+                public void processFinish(String s) {
+
+                    jsonList = new ArrayList<>();
+                    requestList = new ArrayList<>();
+
+                    try {
+                        JSONArray jsonArray = new JSONArray(s);
+                        JSONObject jsonObject ;
+
+                        if (jsonArray != null) {
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                jsonList.add(jsonArray.get(i).toString());
+                            }
+                        }
+
+                            for (int i = 0; i < jsonList.size(); i++) {
+                                jsonObject = new JSONObject(jsonList.get(i));
+                                request = new Request(jsonObject.getInt("requestID"), jsonObject.getString("title"), jsonObject.getString("description"), jsonObject.getString("type")
+                                        , jsonObject.getString("source_address"), jsonObject.getString("destination_address"), jsonObject.getDouble("price")
+                                        , jsonObject.getString("due_time"), jsonObject.getString("submit_time"), jsonObject.getString("contact_info"), jsonObject.getString("request_status"), jsonObject.getInt("userID_added"));
+                                requestList.add(request);
+                            }
+
+                            Intent intent = new Intent(HomeProviderActivity.this, MyRequestActivity.class);
+                            intent.putExtra("Requests", requestList);
+                            String type = "Provider";
+                            intent.putExtra("Type", type);
+                            startActivity(intent);
+
+
+                    } catch (org.json.JSONException e) {
+                        Toast.makeText(HomeProviderActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                    }
+
+
+                }
+            });
+
+            getRequests.execute("http://10.0.2.2/transaction/assignedRequest.php");
+
         } else if (id == R.id.nav_myOffer) {
 
 

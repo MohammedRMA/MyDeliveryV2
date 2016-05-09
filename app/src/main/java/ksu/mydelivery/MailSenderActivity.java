@@ -65,11 +65,11 @@ public class MailSenderActivity extends Activity {
                                 sender.sendMail("This is Subject",
                                         "This is Body",
                                         "isproject2016@gmail.com",
-                                        "brh0o0m10@hotmail.com");
-                                Toast.makeText(MailSenderActivity.this, "brh0o0m10 Sent", Toast.LENGTH_LONG).show();
+                                        "Mohammed.RMA@hotmail.com");
+                                Toast.makeText(MailSenderActivity.this, "MohammedRMA Sent", Toast.LENGTH_LONG).show();
 
                             } catch (Exception e) {
-                                Toast.makeText(MailSenderActivity.this, "Failed  !!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MailSenderActivity.this, "Failed", Toast.LENGTH_LONG).show();
 
                                 Log.e("SendMail", e.getMessage(), e);
                             }
@@ -87,7 +87,7 @@ public class MailSenderActivity extends Activity {
                 }
             });
 
-            checkEmail.execute("http://10.0.2.2/provider/forgetPass.php");
+            checkEmail.execute("http://10.0.2.2/provider/forgotPass.php");
 
 
 

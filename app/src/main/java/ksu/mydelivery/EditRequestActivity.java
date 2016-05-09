@@ -20,7 +20,7 @@ public class EditRequestActivity extends AppCompatActivity {
 
     private Request request;
     private ArrayList<Request> requestList;
-    private  String title, description , type , src , dest, price , dueTime ,contactInfo , requestID;
+    private  String title, description , type , src , dest, price , dueTime ,contactInfo , requestID , Type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,7 @@ public class EditRequestActivity extends AppCompatActivity {
 
         request = (Request) getIntent().getSerializableExtra("Request");
         requestList = (ArrayList<Request>) getIntent().getSerializableExtra("Requests");
+        type = (String) getIntent().getSerializableExtra("Type");
         ((EditText)findViewById(R.id.txtTitle)).setText(request.getTitle());
         ((EditText)findViewById(R.id.txtDescription)).setText(request.getDescription());
         switch (request.getType().toString()) {
@@ -52,20 +53,20 @@ public class EditRequestActivity extends AppCompatActivity {
         ImageButton btnUpdate = (ImageButton) findViewById(R.id.imgbtnSave) ;
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             public void onClick (View v) {
-                UpdateRequest();
+                updateRequest();
             }
         });
 
         ImageButton btnDelete = (ImageButton) findViewById(R.id.imgbtnDelete) ;
         btnDelete.setOnClickListener(new View.OnClickListener() {
             public void onClick (View v) {
-                DeleteRequest();
+                deleteRequest();
             }
         });
 
     }
 
-    public void UpdateRequest() {
+    public void updateRequest() {
 
 
         title = ((EditText) findViewById(R.id.txtTitle)).getText().toString();
@@ -139,7 +140,7 @@ public class EditRequestActivity extends AppCompatActivity {
 
     }
 
-    public void DeleteRequest() {
+    public void deleteRequest() {
 
         requestID = String.valueOf(request.getId());
 
@@ -165,6 +166,7 @@ public class EditRequestActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(EditRequestActivity.this , MyRequestActivity.class);
                     intent.putExtra("Requests",requestList);
+                    intent.putExtra("Type",type);
                     startActivity(intent);
                     finish();
 

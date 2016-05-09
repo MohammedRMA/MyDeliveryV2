@@ -1,15 +1,19 @@
 package ksu.mydelivery;
 
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
@@ -21,6 +25,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -36,7 +41,9 @@ public class AddRequestActivity extends AppCompatActivity {
     private ArrayList<Offer> offerList;
     private ArrayList<Offer> matchedOfferList;
     private ArrayList<Provider> providers;
-
+    private ArrayList<Request> requestList;
+    private EditText dueDate;
+    private EditText time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +57,55 @@ public class AddRequestActivity extends AppCompatActivity {
             }
         });
 
+          requestList = new ArrayList<>();
+          requestList = (ArrayList<Request>) getIntent().getSerializableExtra("Requests");
           user = (RegularUser) getIntent().getSerializableExtra("RegularUser");
+
+        final Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH) ;
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+        final int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        final int min = calendar.get(Calendar.MINUTE);
+
+          dueDate = (EditText) findViewById(R.id.txtDueDate);
+          time = (EditText) findViewById(R.id.txtDueTime);
+
+        if (dueDate != null)
+        dueDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePick = new DatePickerDialog(AddRequestActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        dueDate.setText(year +"-"+ ++monthOfYear +"-"+ dayOfMonth);
+                    }
+                },year,month,day);
+                datePick.setTitle("Due Date");
+                datePick.show();
+            }
+        });
+
+
+        if (time != null)
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePick = new TimePickerDialog(AddRequestActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        time.setText(hourOfDay +":"+ minute);
+                    }
+                },hour,min,true
+                );
+                timePick.setTitle("Due Time");
+                timePick.show();
+            }
+        });
+
+
+
+
     }
 
     @Override
@@ -67,7 +122,8 @@ public class AddRequestActivity extends AppCompatActivity {
         src = ((EditText) findViewById(R.id.txtSource)).getText().toString();
         dest = ((EditText) findViewById(R.id.txtDest)).getText().toString();
         price = ((EditText) findViewById(R.id.txtPrice)).getText().toString();
-        dueTime = ((EditText) findViewById(R.id.txtDueTime)).getText().toString();
+        dueTime = dueDate.getText().toString();
+        dueTime += " "+ time.getText().toString();
         contactInfo = ((EditText) findViewById(R.id.txtContactInfo)).getText().toString();
         userID = String.valueOf(user.getID());
 
@@ -260,7 +316,7 @@ public class AddRequestActivity extends AppCompatActivity {
                                                             JSONObject json = new JSONObject(s);
 
                                                             provider = new Provider(json.getString("password"), json.getString("email"), json.getString("first_name"), json.getString("last_name")
-                                                                    , json.getString("phone_number"), json.getString("birth_date"), json.getLong("nationalID"), json.getString("is_verified"));
+                                                                    , json.getString("phone_number"), json.getString("birth_date"), json.getLong("nationalID"), json.getString("is_verified") , 0.0);
                                                             provider.setID(Integer.parseInt(json.getString("providerID")));
                                                         } catch (org.json.JSONException e) {
                                                             Toast.makeText(AddRequestActivity.this, e.toString(), Toast.LENGTH_LONG).show();
@@ -272,6 +328,7 @@ public class AddRequestActivity extends AppCompatActivity {
                                                         intent.putExtra("MatchedOffers", matchedOfferList);
                                                         intent.putExtra("Providers", providers);
                                                         intent.putExtra("RegularUser", user);
+                                                        intent.putExtra("Requests", requestList);
                                                         startActivity(intent);
                                                         finish();
                                                     }

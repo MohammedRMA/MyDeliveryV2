@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ksu.mydelivery.AssignProviderActivity"
-    android:background="@color/gray">
+    android:background="@drawable/mydeliverybackground112">
 
 
     <ListView

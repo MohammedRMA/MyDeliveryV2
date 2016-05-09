@@ -200,7 +200,7 @@ public class VerifyProviderActivity extends AppCompatActivity {
                     }
                 });
 
-                task1.execute("http://10.0.2.2/provider/unVerifyProvider.php");
+                task1.execute("http://10.0.2.2/provider/invalidateProvider.php");
 
             }
         }
