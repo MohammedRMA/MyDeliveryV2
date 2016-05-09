@@ -43,32 +43,10 @@ public class HomeActivity extends AppCompatActivity
         //toolbar.setNavigationIcon(R.drawable.ic_menu_camera);
         setSupportActionBar(toolbar);
 
-
-
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
         user = (RegularUser) getIntent().getSerializableExtra("RegularUser");
 
         requestList = new ArrayList<>();
         requestList = (ArrayList<Request>) getIntent().getSerializableExtra("Requests");
-
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        View hView =  navigationView.getHeaderView(0);
-
-
-            TextView name = (TextView) hView.findViewById(R.id.txtProfileName);
-            TextView phone = (TextView) hView.findViewById(R.id.txtProfilePhone);
-            name.setText(user.getfName() + " " + user.getlName());
-            phone.setText("0" + user.getPhoneNumber());
-
-
 
 
         FloatingActionButton addRequest = (FloatingActionButton) findViewById(R.id.fabAddRequest);
@@ -84,6 +62,22 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        View hView =  navigationView.getHeaderView(0);
+
+
+            TextView name = (TextView) hView.findViewById(R.id.txtProfileName);
+            TextView phone = (TextView) hView.findViewById(R.id.txtProfilePhone);
+            name.setText(user.getfName() + " " + user.getlName());
+            phone.setText("0" + user.getPhoneNumber());
 
 
             final ListView lvRequests = (ListView) findViewById(R.id.lvRequests);
@@ -203,7 +197,8 @@ public class HomeActivity extends AppCompatActivity
 
         }else if (id == R.id.nav_logOut) {
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-            finish();        } else if (id == R.id.nav_share) {
+            finish();
+        } else if (id == R.id.nav_share) {
             startActivity(new Intent(HomeActivity.this, ShareActivity.class));
         } else if (id == R.id.nav_contact) {
             startActivity(new Intent(HomeActivity.this, ContactActivity.class));

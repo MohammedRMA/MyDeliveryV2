@@ -61,10 +61,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txtvName"
-        android:textSize="18dp"
+        android:textSize="20dp"
         android:layout_below="@+id/txtUserPhone"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="61dp" />
+        android:layout_marginTop="92dp" />
 
     <TextView
         android:textColor="@color/lightBlue"
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/txtvIsSuspended"
-        android:textSize="18dp"
+        android:textSize="20dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

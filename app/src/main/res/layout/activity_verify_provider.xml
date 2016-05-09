@@ -60,8 +60,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txtvName"
-        android:textSize="18dp"
-        android:layout_marginTop="44dp"
+        android:textSize="20dp"
+        android:layout_marginTop="98dp"
         android:layout_below="@+id/txtProviderPhone"
         android:layout_centerHorizontal="true" />
 
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/txtvIsVerified"
-        android:textSize="18dp"
+        android:textSize="20dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

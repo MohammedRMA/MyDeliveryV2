@@ -72,7 +72,17 @@ public class VerifyProviderActivity extends AppCompatActivity {
         EproviderPhone = (EditText) findViewById(R.id.txtProviderPhone) ;
         providerPhone = String.valueOf(EproviderPhone.getText());
 
-            HashMap updateProvider = new HashMap();
+
+        Tname = (TextView) findViewById(R.id.txtvName) ;
+        Tname.setText(" ");
+        Tverify = (TextView) findViewById(R.id.txtvIsVerified);
+        Tverify.setText(" ");
+        
+
+        (findViewById(R.id.txtProviderPhone)).clearFocus();
+
+
+        HashMap updateProvider = new HashMap();
 
             updateProvider.put("txtPhone" , providerPhone);
 
@@ -120,12 +130,17 @@ public class VerifyProviderActivity extends AppCompatActivity {
 
     public void verifyProvider(){
 
+        Tname = (TextView) findViewById(R.id.txtvName) ;
+        Tname.setText(" ");
+        Tverify = (TextView) findViewById(R.id.txtvIsVerified);
+        Tverify.setText(" ");
+
         if(provider != null) {
 
-            Tname = (TextView) findViewById(R.id.txtvName) ;
-            Tname.setText(" ");
-            Tverify = (TextView) findViewById(R.id.txtvIsVerified);
-            Tverify.setText(" ");
+            providerPhone = providerPhone.replaceFirst("0","");
+
+
+            (findViewById(R.id.txtProviderPhone)).clearFocus();
 
             if (!providerPhone.equals(String.valueOf(provider.getPhoneNumber()))) {
                 (findViewById(R.id.txtProviderPhone)).requestFocus();
@@ -175,16 +190,20 @@ public class VerifyProviderActivity extends AppCompatActivity {
 
         if(provider != null) {
 
+            providerPhone = providerPhone.replaceFirst("0","");
+
+            (findViewById(R.id.txtProviderPhone)).clearFocus();
+
             if (!providerPhone.equals(String.valueOf(provider.getPhoneNumber()))) {
                 (findViewById(R.id.txtProviderPhone)).requestFocus();
                 ((EditText) (findViewById(R.id.txtProviderPhone))).setError("YOU SHOULD SEARCH FOR USER FIRST");
+
             } else {
 
                 HashMap updateProvider = new HashMap();
 
                 updateProvider.put("txtPhone", providerPhone);
 
-                Toast.makeText(VerifyProviderActivity.this, " phone " + providerPhone, Toast.LENGTH_LONG).show();
 
                 PostResponseAsyncTask task1 = new PostResponseAsyncTask(VerifyProviderActivity.this, updateProvider, new AsyncResponse() {
                     @Override
@@ -193,6 +212,9 @@ public class VerifyProviderActivity extends AppCompatActivity {
                             provider.setVerified(false);
 
                             Toast.makeText(VerifyProviderActivity.this, "Success", Toast.LENGTH_LONG).show();
+
+                            (findViewById(R.id.txtProviderPhone)).clearFocus();
+
 
                         } else {
                             Toast.makeText(VerifyProviderActivity.this, "Failed", Toast.LENGTH_LONG).show();

@@ -85,7 +85,7 @@ public class HomeAdminActivity extends AppCompatActivity
         TextView name = (TextView) hView.findViewById(R.id.txtProfileName);
         TextView phone = (TextView) hView.findViewById(R.id.txtProfilePhone);
         name.setText(admin.getfName() + " " + admin.getlName());
-        phone.setText(admin.getPhoneNumber());
+        phone.setText("0" + admin.getPhoneNumber());
 
 
         final ListView lvRequests = (ListView) findViewById(R.id.lvRequests);

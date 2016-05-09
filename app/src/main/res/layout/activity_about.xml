@@ -16,8 +16,9 @@
         android:layout_height="fill_parent"
         android:text="My Delivery
 
-        is an application that .."
+        is an application that helps pepole to deliver their  "
         android:id="@+id/txtAbout"
+        android:textSize="30dp"
         android:textColor="@color/lightBlue"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />

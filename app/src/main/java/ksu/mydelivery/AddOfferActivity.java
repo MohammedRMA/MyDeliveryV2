@@ -30,6 +30,10 @@ public class AddOfferActivity extends AppCompatActivity /* implements AdapterVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_offer);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
+
+
         ImageButton addOffer = (ImageButton) findViewById(R.id.imgbtnAddOffer);
         addOffer.setOnClickListener(new View.OnClickListener() {
             @Override

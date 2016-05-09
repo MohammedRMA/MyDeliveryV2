@@ -109,4 +109,5 @@
     <string name="title_activity_my_offer2">MyOffer2Activity</string>
     <string name="title_activity_home_admin">HomeAdminActivity</string>
     <string name="title_activity_map">Map</string>
+    <string name="title_activity_share1">Share1Activity</string>
 </resources>

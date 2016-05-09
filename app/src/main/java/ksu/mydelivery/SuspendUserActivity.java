@@ -71,7 +71,15 @@ public class SuspendUserActivity extends AppCompatActivity {
         EuserPhone = (EditText) findViewById(R.id.txtUserPhone) ;
         userPhone = String.valueOf(EuserPhone.getText());
 
-            HashMap updateUser = new HashMap();
+        Tname = (TextView) findViewById(R.id.txtvName) ;
+        Tname.setText(" ");
+        Tsuspend = (TextView) findViewById(R.id.txtvIsSuspended);
+        Tsuspend.setText(" ");
+
+        (findViewById(R.id.txtUserPhone)).clearFocus();
+
+
+        HashMap updateUser = new HashMap();
 
             updateUser.put("txtPhone" , userPhone);
 
@@ -118,22 +126,17 @@ public class SuspendUserActivity extends AppCompatActivity {
 
     public void suspendUser(){
 
+        Tname = (TextView) findViewById(R.id.txtvName) ;
+        Tname.setText(" ");
+        Tsuspend = (TextView) findViewById(R.id.txtvIsSuspended);
+        Tsuspend.setText(" ");
+
+
         if(user != null) {
 
-            Tname = (TextView) findViewById(R.id.txtvName) ;
-            Tname.setText(" ");
-            Tsuspend = (TextView) findViewById(R.id.txtvIsSuspended);
-            Tsuspend.setText(" ");
-
-
-            Toast.makeText(SuspendUserActivity.this, "user phone  =  " + userPhone, Toast.LENGTH_LONG).show();
-            Toast.makeText(SuspendUserActivity.this, " another user phone  =  " + String.valueOf(user.getPhoneNumber()), Toast.LENGTH_LONG).show();
-
-            userPhone=userPhone.replace("0","");
-            Toast.makeText(SuspendUserActivity.this, "user phone  =  " + userPhone, Toast.LENGTH_LONG).show();
+            userPhone=userPhone.replaceFirst("0","");
 
             if (!userPhone.equals(String.valueOf(user.getPhoneNumber()))) {
-                Toast.makeText(SuspendUserActivity.this, " phone not equal  ", Toast.LENGTH_LONG).show();
                 (findViewById(R.id.txtUserPhone)).requestFocus();
                 ((EditText) (findViewById(R.id.txtUserPhone))).setError("YOU SHOULD SEARCH FOR USER FIRST");
             } else {
@@ -161,8 +164,6 @@ public class SuspendUserActivity extends AppCompatActivity {
             }
         }
         else {
-            Toast.makeText(SuspendUserActivity.this, "user null  ==  ", Toast.LENGTH_LONG).show();
-
             (findViewById(R.id.txtUserPhone)).requestFocus();
             ((EditText) (findViewById(R.id.txtUserPhone))).setError("YOU SHOULD SEARCH FOR USER FIRST");
         }
@@ -179,6 +180,11 @@ public class SuspendUserActivity extends AppCompatActivity {
         Tsuspend.setText(" ");
 
         if(user != null) {
+
+
+
+            userPhone=userPhone.replaceFirst("0","");
+
 
             if (!userPhone.equals(String.valueOf(user.getPhoneNumber()))) {
                 (findViewById(R.id.txtUserPhone)).requestFocus();

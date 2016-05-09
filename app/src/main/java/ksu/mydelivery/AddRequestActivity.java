@@ -33,7 +33,7 @@ import java.util.Locale;
 public class AddRequestActivity extends AppCompatActivity {
 
     private  String title, description , type , src , dest, price , dueTime , contactInfo , userID;
-     private RegularUser user ;
+    private RegularUser user ;
     private String requestID;
     private Provider provider;
     private Offer offer;
@@ -49,6 +49,10 @@ public class AddRequestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_request);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
+
 
         ImageButton btnAdd = (ImageButton) findViewById(R.id.btnAddRequest) ;
         btnAdd.setOnClickListener(new View.OnClickListener() {
