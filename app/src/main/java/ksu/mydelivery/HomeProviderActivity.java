@@ -1,10 +1,15 @@
 package ksu.mydelivery;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,8 +44,6 @@ public class HomeProviderActivity extends AppCompatActivity
     private Offer offer;
     private ArrayList<Request> requestList , assignedRequestList;
     private Request request;
-    private  boolean found;
-    private int i ;
 
 
 
@@ -58,10 +61,12 @@ public class HomeProviderActivity extends AppCompatActivity
         requestList = (ArrayList<Request>) getIntent().getSerializableExtra("Requests");
         assignedRequestList = new ArrayList<>();
         assignedRequestList= (ArrayList<Request>) getIntent().getSerializableExtra("AssignedRequests");
-        found = false ;
-        for ( i = 0 ; i < assignedRequestList.size() ; i++) {
+
+
+        for ( int i = 0 ; i < assignedRequestList.size() ; i++) {
 
             if (assignedRequestList.get(i).getStatus().equalsIgnoreCase("new")) {
+                final int index = i ;
                 AlertDialog.Builder aBuilder = new AlertDialog.Builder(HomeProviderActivity.this);
 
                 aBuilder.setMessage("You have a new request assigned for you !")
@@ -70,36 +75,9 @@ public class HomeProviderActivity extends AppCompatActivity
                             @Override
                             public void onClick(final DialogInterface dialog, int which) {
 
-
-                                HashMap postData = new HashMap();
-                                postData.put("txtRequestID", String.valueOf(assignedRequestList.get(i-1).getId()) );
-                                postData.put("txtTitle", assignedRequestList.get(i-1).getTitle());
-                                postData.put("txtDescription", assignedRequestList.get(i-1).getDescription());
-                                postData.put("txtType", assignedRequestList.get(i-1).getType());
-                                postData.put("txtSrcAddress", assignedRequestList.get(i-1).getSrcAddress());
-                                postData.put("txtDestAddress", assignedRequestList.get(i-1).getDestAddress());
-                                postData.put("txtPrice", String.valueOf(assignedRequestList.get(i-1).getPrice()) );
-                                postData.put("txtDueTime", assignedRequestList.get(i-1).getDueTime());
-                                postData.put("txtContactInfo", assignedRequestList.get(i-1).getContactInfo());
-                                postData.put("txtRequestStatus", "InProgress");
-
-
-                                PostResponseAsyncTask task1 = new PostResponseAsyncTask(HomeProviderActivity.this, postData, new AsyncResponse() {
-                                    @Override
-                                    public void processFinish(String s) {
-                                        if (s.contains("success")) {
-                                            Toast.makeText(HomeProviderActivity.this,"Request has been assigned successfully",Toast.LENGTH_LONG);
-                                           found = true ;
-                                            dialog.cancel();
-                                        }
-                                        else {
-                                            Toast.makeText(HomeProviderActivity.this, "Failed", Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                });
-
-                                task1.execute("http://10.0.2.2/user/updateRequest.php");
-
+                                readRequest(assignedRequestList.get(index));
+                                dialog.cancel();
+                                showNotification(assignedRequestList.get(index));
                             }
                         });
 
@@ -108,10 +86,10 @@ public class HomeProviderActivity extends AppCompatActivity
                 alert.show();
 
             }
-            if (found) {
-                break;
-            }
+
         }
+
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View hView =  navigationView.getHeaderView(0);
@@ -164,6 +142,63 @@ public class HomeProviderActivity extends AppCompatActivity
                 */
             }
         });
+
+    }
+
+    public void readRequest (Request request) {
+
+        HashMap postData = new HashMap();
+        postData.put("txtRequestID", String.valueOf(request.getId()) );
+        postData.put("txtTitle", request.getTitle());
+        postData.put("txtDescription", request.getDescription());
+        postData.put("txtType", request.getType());
+        postData.put("txtSrcAddress", request.getSrcAddress());
+        postData.put("txtDestAddress", request.getDestAddress());
+        postData.put("txtPrice", String.valueOf(request.getPrice()) );
+        postData.put("txtDueTime", request.getDueTime());
+        postData.put("txtContactInfo", request.getContactInfo());
+        postData.put("txtRequestStatus", "InProgress");
+
+
+        PostResponseAsyncTask task1 = new PostResponseAsyncTask(HomeProviderActivity.this, postData, new AsyncResponse() {
+            @Override
+            public void processFinish(String s) {
+                if (s.contains("success")) {
+                    Toast.makeText(HomeProviderActivity.this,"Request has been assigned successfully",Toast.LENGTH_LONG).show();
+
+                }
+                else {
+                    Toast.makeText(HomeProviderActivity.this, "Failed", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        task1.execute("http://10.0.2.2/user/updateRequest.php");
+
+    }
+
+    public void showNotification(Request req) {
+
+        Intent intent =  new Intent(HomeProviderActivity.this, MyOfferActivity.class);
+        intent.putExtra("Requests",requestList);
+        intent.putExtra("Request",req);
+        String type = "Provider";
+        intent.putExtra("Type",type);
+
+        PendingIntent pi = PendingIntent.getActivity(HomeProviderActivity.this, 0, intent , 0);
+
+        Resources r = getResources();
+        Notification notification = new NotificationCompat.Builder(this)
+                .setTicker("New Request")
+                .setSmallIcon(android.R.drawable.ic_menu_send)
+                .setContentTitle("You have a new request")
+                .setContentText("You have a new request check it out !")
+                .setContentIntent(pi)
+                .setAutoCancel(true)
+                .build();
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(0, notification);
 
     }
 

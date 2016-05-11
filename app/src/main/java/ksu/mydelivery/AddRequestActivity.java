@@ -21,7 +21,9 @@ import com.kosalgeek.genasync12.PostResponseAsyncTask;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.nio.BufferOverflowException;
 import java.sql.Time;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,6 +46,7 @@ public class AddRequestActivity extends AppCompatActivity {
     private ArrayList<Request> requestList;
     private EditText dueDate;
     private EditText time;
+    private Date todayDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,7 @@ public class AddRequestActivity extends AppCompatActivity {
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
         final int hour = calendar.get(Calendar.HOUR_OF_DAY);
         final int min = calendar.get(Calendar.MINUTE);
+        todayDate = new Date();
 
           dueDate = (EditText) findViewById(R.id.txtDueDate);
           time = (EditText) findViewById(R.id.txtDueTime);
@@ -119,25 +123,121 @@ public class AddRequestActivity extends AppCompatActivity {
 
     public void AddRequest () {
 
-        title = ((EditText) findViewById(R.id.txtTitle)).getText().toString();
-        description = ((EditText) findViewById(R.id.txtDescr)).getText().toString();
-        Spinner spnType = ((Spinner) findViewById(R.id.spnType));
-        type   = spnType.getSelectedItem().toString();
-        src = ((EditText) findViewById(R.id.txtSource)).getText().toString();
-        dest = ((EditText) findViewById(R.id.txtDest)).getText().toString();
-        price = ((EditText) findViewById(R.id.txtPrice)).getText().toString();
-        dueTime = dueDate.getText().toString();
-        dueTime += " "+ time.getText().toString();
-        contactInfo = ((EditText) findViewById(R.id.txtContactInfo)).getText().toString();
-        userID = String.valueOf(user.getID());
-
-        if (title.equals("") || type.equals("--Type--") || src.equals("") || dest.equals("") || price.equals("") || dueTime.equals("") || contactInfo.equals("") ) {
+        try {
+            title = ((EditText) findViewById(R.id.txtTitle)).getText().toString();
+        }catch (BufferOverflowException e){
             (findViewById(R.id.txtTitle)).requestFocus();
-            ((EditText) (findViewById(R.id.txtTitle))).setError("FIELD CANNOT BE EMPTY");
-
+            ((EditText) (findViewById(R.id.txtTitle))).setError("Check This Field");
         }
 
-        else {
+        try{
+            description = ((EditText) findViewById(R.id.txtDescr)).getText().toString();
+        }catch (BufferOverflowException e){
+            (findViewById(R.id.txtDescr)).requestFocus();
+            ((EditText) (findViewById(R.id.txtDescr))).setError("Check This Field");
+        }
+
+            Spinner spnType = ((Spinner) findViewById(R.id.spnType));
+            type = spnType.getSelectedItem().toString();
+
+        try{
+            src = ((EditText) findViewById(R.id.txtSource)).getText().toString();
+        }catch (BufferOverflowException e){
+            (findViewById(R.id.txtSource)).requestFocus();
+            ((EditText) (findViewById(R.id.txtSource))).setError("Check This Field");
+        }
+
+        try{
+            dest = ((EditText) findViewById(R.id.txtDest)).getText().toString();
+        }catch (BufferOverflowException e){
+            (findViewById(R.id.txtDest)).requestFocus();
+            ((EditText) (findViewById(R.id.txtDest))).setError("Check This Field");
+        }
+
+        try{
+            price = ((EditText) findViewById(R.id.txtPrice)).getText().toString();
+        }catch (BufferOverflowException e){
+            (findViewById(R.id.txtPrice)).requestFocus();
+            ((EditText) (findViewById(R.id.txtPrice))).setError("Check This Field");
+        }
+            dueTime = dueDate.getText().toString();
+            dueTime += " " + time.getText().toString();
+
+        try{
+            contactInfo = ((EditText) findViewById(R.id.txtContactInfo)).getText().toString();
+        }catch (BufferOverflowException e){
+            (findViewById(R.id.txtContactInfo)).requestFocus();
+            ((EditText) (findViewById(R.id.txtContactInfo))).setError("Check This Field");
+        }
+            userID = String.valueOf(user.getID());
+
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date userDate = new Date (1994-03-10);
+        try {
+            userDate = df.parse(dueDate.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String hours ;
+        String mins;
+        try {
+            String[] split = dueTime.split(":");
+             hours = split[0]; // Hour of time
+             mins = split[1]; // Minute of time
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            hours = "100" ;
+            mins = "100";
+        }
+        if (title.equals("") || type.equals("--Type--") || src.equals("") || dest.equals("") || price.equals("") || dueTime.equals("") || contactInfo.equals("") ) {
+
+            if(title.equals("")) {
+                (findViewById(R.id.txtTitle)).requestFocus();
+                ((EditText) (findViewById(R.id.txtTitle))).setError("Field Cannot Be Empty");
+            }
+            if(type.equals("--Type--")) {
+                (findViewById(R.id.lblType)).requestFocus();
+                ((TextView) (findViewById(R.id.lblType))).setError("Please Choose Type");
+            }
+            if(src.equals("")) {
+                (findViewById(R.id.txtSrcAddress)).requestFocus();
+                ((EditText) (findViewById(R.id.txtSource))).setError("Field Cannot Be Empty");
+            }
+            if(dest.equals("")) {
+                (findViewById(R.id.txtDestAddress)).requestFocus();
+                ((EditText) (findViewById(R.id.txtDest))).setError("Field Cannot Be Empty");
+            }
+            if(price.equals("")) {
+                (findViewById(R.id.txtPrice)).requestFocus();
+                ((EditText) (findViewById(R.id.txtPrice))).setError("Field Cannot Be Empty");
+            }
+            if(dueTime.equals("")) {
+                (findViewById(R.id.txtDueTime)).requestFocus();
+                ((EditText) (findViewById(R.id.txtDueDate))).setError("Field Cannot Be Empty");
+            }
+            if(contactInfo.equals("")) {
+                (findViewById(R.id.txtContactInfo)).requestFocus();
+                ((EditText) (findViewById(R.id.txtContactInfo))).setError("Field Cannot Be Empty");
+            }
+
+        }
+        else if ( (!contactInfo.startsWith("05")) || contactInfo.length() != 10 ) {
+
+                (findViewById(R.id.txtContactInfo)).requestFocus();
+                ((EditText) (findViewById(R.id.txtContactInfo))).setError("Formated Like 05xxxxxxxx");
+
+        }else if (df.format(userDate).compareTo(df.format(todayDate)) < 0 ){
+
+                (findViewById(R.id.txtDueDate)).requestFocus();
+                ((EditText) (findViewById(R.id.txtDueDate))).setError("Invalid date");
+        }
+        else if ( Integer.parseInt(hours) > 24 || Integer.parseInt(hours) < 0 || Integer.parseInt(mins) < 0 || Integer.parseInt(mins) > 59 ) {
+
+            (findViewById(R.id.txtDueTime)).requestFocus();
+            ((EditText) (findViewById(R.id.txtDueTime))).setError("Invalid time");
+
+        } else {
 
 
             HashMap postData = new HashMap();

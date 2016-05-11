@@ -18,7 +18,6 @@ public class MyRequestActivity extends TabActivity   implements TabHost.OnTabCha
 
     private static final String LIST1_TAB_TAG = "Current Request";
     private static final String LIST2_TAB_TAG = "Previous Request";
-    // The two views in our tabbed example
     private ArrayList<Request> requestList;
     private static ArrayList<Request> currentRequest;
     private static ArrayList<Request> previousRequest;
@@ -38,10 +37,6 @@ public class MyRequestActivity extends TabActivity   implements TabHost.OnTabCha
 
         tabHost = getTabHost();
         tabHost.setOnTabChangedListener(this);
-
-        // setup list view 1
-
-        // create some dummy strings to add to the list
 
         requestList = (ArrayList<Request>) getIntent().getSerializableExtra("Requests");
         type = "";
@@ -70,18 +65,15 @@ public class MyRequestActivity extends TabActivity   implements TabHost.OnTabCha
             }
         }
 
-        // setup list view 2
 
         lvPreviousRequest = (ListView) findViewById(R.id.lvMyPreviousRequest);
 
 
-        // create some dummy strings to add to the list (make it empty initially)
 
 
 
         lvCurrentRequest = (ListView) findViewById(R.id.lvMyCurrentRequest);
 
-        // add an onclicklistener to add an item from the first list to the second list
 
         lvCurrentRequest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -126,7 +118,6 @@ public class MyRequestActivity extends TabActivity   implements TabHost.OnTabCha
         });
 
 
-        // add views to tab host
 
         tabHost.addTab(tabHost.newTabSpec(LIST1_TAB_TAG).setIndicator(LIST1_TAB_TAG).setContent(new TabHost.TabContentFactory() {
 
@@ -150,21 +141,17 @@ public class MyRequestActivity extends TabActivity   implements TabHost.OnTabCha
 
     }
 
-    /**
-     * Implement logic here when a tab is selected
-     */
+
 
     public void onTabChanged(String tabName) {
 
         if(tabName.equals(LIST2_TAB_TAG)) {
-            //do something
             previousRequestAdapter = new RequestBaseAdapter(this , previousRequest);
             lvPreviousRequest.setAdapter(previousRequestAdapter);
 
         }
 
         else if(tabName.equals(LIST1_TAB_TAG)) {
-            //do something
             currentRequestAdapter = new RequestBaseAdapter(this , currentRequest);
             lvCurrentRequest.setAdapter(currentRequestAdapter);
         }
